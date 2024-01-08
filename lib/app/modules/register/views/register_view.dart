@@ -20,18 +20,14 @@ class RegisterView extends GetView<RegisterController> {
         appBar: AppBar(
           leading: Column(
             children: [
-              Obx(
-                () {
-                  return CommonBackButton(
-                    onTap: () {
-                      controller.isAgeSelectView
-                          ? controller.isAgeSelectView = false
-                          : Get.back();
-                      controller.update();
-                    },
-                  );
+              CommonBackButton(
+                onTap: () {
+                  controller.isAgeSelectView
+                      ? controller.isAgeSelectView = false
+                      : Get.back();
+                  controller.update();
                 },
-              ),
+              )
             ],
           ),
         ),

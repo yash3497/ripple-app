@@ -84,14 +84,15 @@ class RegisterController extends GetxController {
     try {
       Map body = {
         "lastName": lastNameController.text,
-        "phoneNo": Get.find<LogInController>().phoneNumberController.text,
+        "phoneNo":
+            int.parse(Get.find<LogInController>().phoneNumberController.text),
         "pastProblems": trainingExp
             .where((element) => element['isSelected'] == true)
             .map((e) => e['title'])
             .toList(),
         "firstName": fistNameController.text,
         "gender": genderList[selectedGender],
-        "age": ageController.text,
+        "age": int.parse(ageController.text),
       };
       var response =
           await HttpServices.post(ApiConstants.register, jsonEncode(body));

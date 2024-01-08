@@ -35,17 +35,18 @@ class LogInController extends GetxController {
 
   sendOtp() async {
     try {
-      var response = await HttpServices.get(
-          '${ApiConstants.twoFactorUrl}/+91${phoneNumberController.text}/AUTOGEN3');
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        otpSessionId = data['Details'];
-        Fluttertoast.showToast(msg: "OTP Sent Successfully");
-        Get.toNamed(Routes.OTP_VERIFY);
-      } else {
-        print('Failed to generate OTP');
-        Fluttertoast.showToast(msg: 'Network Error');
-      }
+      // var response = await HttpServices.get(
+      //     '${ApiConstants.twoFactorUrl}/+91${phoneNumberController.text}/AUTOGEN3');
+      // if (response.statusCode == 200) {
+      //   var data = jsonDecode(response.body);
+      //   otpSessionId = data['Details'];
+      //   Fluttertoast.showToast(msg: "OTP Sent Successfully");
+      //   Get.toNamed(Routes.OTP_VERIFY);
+      // } else {
+      //   print('Failed to generate OTP');
+      //   Fluttertoast.showToast(msg: 'Network Error');
+      // }
+      Get.toNamed(Routes.OTP_VERIFY);
     } catch (e) {
       print("Error in sending OTP $e");
     }
@@ -72,7 +73,7 @@ class LogInController extends GetxController {
   login() async {
     try {
       Map body = {
-        'phoneNo': phoneNumberController.text,
+        'phoneNo': int.parse(phoneNumberController.text),
       };
       var response =
           await HttpServices.post(ApiConstants.login, jsonEncode(body));

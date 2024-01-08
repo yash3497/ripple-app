@@ -102,7 +102,8 @@ class OtpVerifyView extends GetView<LogInController> {
                 AppButton(
                     onPressed: () {
                       if (controller.otpKey.currentState!.validate()) {
-                        controller.verifyOtp();
+                        // controller.verifyOtp();
+                        controller.login();
                       }
                     },
                     buttonText: "Verify"),
