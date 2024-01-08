@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:ripple_healthcare/app/modules/register/controllers/register_controller.dart';
-import 'package:ripple_healthcare/app/routes/app_pages.dart';
 import 'package:ripple_healthcare/app/widget/app_button.dart';
 import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
 import 'package:ripple_healthcare/utils/app_colors.dart';
@@ -97,7 +95,7 @@ class TrainingExperianceView extends GetView<RegisterController> {
                 addVerticalSpace(20),
                 AppButton(
                     onPressed: () {
-                      Get.toNamed(Routes.SUCCESS_VIEW);
+                      controller.registerUser();
                     },
                     buttonText: 'Done')
               ],

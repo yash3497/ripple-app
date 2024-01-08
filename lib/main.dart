@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:ripple_healthcare/app/modules/log_in/bindings/log_in_binding.dart';
 
 import 'app/routes/app_pages.dart';
 
 void main() {
-  runApp(
-    MyApp(),
-  );
+  GetStorage.init();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

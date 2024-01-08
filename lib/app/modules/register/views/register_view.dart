@@ -22,7 +22,6 @@ class RegisterView extends GetView<RegisterController> {
             children: [
               Obx(
                 () {
-                  print(controller.tempBool);
                   return CommonBackButton(
                     onTap: () {
                       controller.isAgeSelectView
@@ -81,6 +80,7 @@ class RegisterView extends GetView<RegisterController> {
                             ),
                             addVerticalSpace(15),
                             CustomTextField(
+                              controller: controller.lastNameController,
                               isFill: true,
                               hintText: 'Last Name',
                               validator: (value) {

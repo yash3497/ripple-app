@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ripple_healthcare/app/modules/log_in/controllers/log_in_controller.dart';
-import 'package:ripple_healthcare/app/routes/app_pages.dart';
+
 import 'package:ripple_healthcare/app/widget/app_button.dart';
 import 'package:ripple_healthcare/utils/app_colors.dart';
 
@@ -15,6 +15,7 @@ class OtpVerifyView extends GetView<LogInController> {
   const OtpVerifyView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    controller.updateTimer();
     return Scaffold(
         appBar: AppBar(
           leading: const Column(
@@ -45,6 +46,7 @@ class OtpVerifyView extends GetView<LogInController> {
                 ),
                 addVerticalSpace(40),
                 Pinput(
+                  controller: controller.otpController,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   defaultPinTheme: PinTheme(
                     width: 56,
@@ -87,7 +89,7 @@ class OtpVerifyView extends GetView<LogInController> {
                     ),
                   ),
                   validator: (val) {
-                    if (val == null || val.isEmpty) {
+                    if (val == null || val.isEmpty || val.length != 4) {
                       return 'Incorrect pin';
                     }
                     return null;
@@ -99,21 +101,25 @@ class OtpVerifyView extends GetView<LogInController> {
                 addVerticalSpace(20),
                 AppButton(
                     onPressed: () {
-                      Get.toNamed(Routes.REGISTER);
+                      if (controller.otpKey.currentState!.validate()) {
+                        controller.verifyOtp();
+                      }
                     },
                     buttonText: "Verify"),
                 addVerticalSpace(15),
-                const Center(
-                    child: Text(
-                  "Request new code in 00:30s",
-                  style: TextStyle(color: AppColor.textGrayColor),
-                )),
+                GetBuilder<LogInController>(builder: (controller) {
+                  return Center(
+                      child: Text(
+                    "Request new code in 00:${controller.seconds}s",
+                    style: TextStyle(color: AppColor.textGrayColor),
+                  ));
+                }),
                 const Spacer(),
                 Center(
                   child: RichText(
                       textAlign: TextAlign.center,
-                      text: const TextSpan(children: [
-                        TextSpan(
+                      text: TextSpan(children: [
+                        const TextSpan(
                           text: "Didn’t received code?",
                           style: TextStyle(
                               fontSize: 15,
@@ -123,7 +129,10 @@ class OtpVerifyView extends GetView<LogInController> {
                         WidgetSpan(
                             alignment: PlaceholderAlignment.middle,
                             child: InkWell(
-                              child: Text(
+                              onTap: () {
+                                controller.resendOtp();
+                              },
+                              child: const Text(
                                 " Resend",
                                 style: TextStyle(
                                     fontSize: 15,

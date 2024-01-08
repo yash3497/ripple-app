@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
 import 'package:ripple_healthcare/utils/app_colors.dart';
-import 'package:ripple_healthcare/utils/constant_variable.dart';
 
 class SuccessFullAccountCreated extends StatelessWidget {
   const SuccessFullAccountCreated({super.key});

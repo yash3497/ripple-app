@@ -1,5 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:ripple_healthcare/app/modules/log_in/controllers/log_in_controller.dart';
+import 'package:ripple_healthcare/app/routes/app_pages.dart';
+import 'package:ripple_healthcare/services/http_services.dart';
+import 'package:ripple_healthcare/utils/api_constants.dart';
 
 class RegisterController extends GetxController {
   //TODO: Implement RegisterController
@@ -12,6 +19,7 @@ class RegisterController extends GetxController {
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> otpKey = GlobalKey<FormState>();
   final TextEditingController fistNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
   List genderList = ['Male', "Female", "Others"];
 
@@ -71,4 +79,30 @@ class RegisterController extends GetxController {
       "isSelected": false,
     },
   ];
+
+  registerUser() async {
+    try {
+      Map body = {
+        "lastName": lastNameController.text,
+        "phoneNo": Get.find<LogInController>().phoneNumberController.text,
+        "pastProblems": trainingExp
+            .where((element) => element['isSelected'] == true)
+            .map((e) => e['title'])
+            .toList(),
+        "firstName": fistNameController.text,
+        "gender": genderList[selectedGender],
+        "age": ageController.text,
+      };
+      var response =
+          await HttpServices.post(ApiConstants.register, jsonEncode(body));
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(msg: 'Registration Successful');
+        Get.offAllNamed(Routes.SUCCESS_VIEW);
+      } else {
+        Fluttertoast.showToast(msg: 'Something went wrong');
+      }
+    } catch (e) {
+      print('Register Error: $e');
+    }
+  }
 }

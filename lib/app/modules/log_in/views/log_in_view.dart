@@ -1,8 +1,9 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
-import 'package:ripple_healthcare/app/routes/app_pages.dart';
 import 'package:ripple_healthcare/app/widget/app_button.dart';
 import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
 import 'package:ripple_healthcare/app/widget/custom_tetxt_field.dart';
@@ -38,6 +39,7 @@ class LogInView extends GetView<LogInController> {
               ),
               Spacer(),
               CustomTextField(
+                controller: controller.phoneNumberController,
                 hintText: "Enter Mobile Number",
                 keyboardType: TextInputType.phone,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
@@ -78,7 +80,7 @@ class LogInView extends GetView<LogInController> {
               AppButton(
                   onPressed: () {
                     if (controller.formKey.currentState!.validate()) {
-                      Get.toNamed(Routes.OTP_VERIFY);
+                      controller.sendOtp();
                     }
                   },
                   buttonText: "Send Code"),
