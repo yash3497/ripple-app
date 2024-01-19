@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:ripple_healthcare/app/modules/register/views/successfully_act_created.dart';
-import 'package:ripple_healthcare/app/modules/register/views/training_experiance_view.dart';
 
+import '../modules/dashboard_view/bindings/dashboard_view_binding.dart';
+import '../modules/dashboard_view/views/dashboard_view_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/log_in/bindings/log_in_binding.dart';
@@ -10,6 +10,8 @@ import '../modules/log_in/views/otp_verify_view.dart';
 import '../modules/log_in/views/splash_screen.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/register/views/successfully_act_created.dart';
+import '../modules/register/views/training_experiance_view.dart';
 
 part 'app_routes.dart';
 
@@ -53,6 +55,11 @@ class AppPages {
       name: _Paths.SUCCESS_VIEW,
       page: () => const SuccessFullAccountCreated(),
       binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.DASHBOARD_VIEW,
+      page: () => const DashboardViewView(),
+      binding: DashboardViewBinding(),
     ),
   ];
 }

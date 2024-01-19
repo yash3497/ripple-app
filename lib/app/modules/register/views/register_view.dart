@@ -53,7 +53,7 @@ class RegisterView extends GetView<RegisterController> {
                         : "Please enter your name as per legal id.",
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    textColor: AppColor.textGreyColor,
+                    textColor: AppColor.textGrayColor,
                   ),
                   const Spacer(),
                   !controller.isAgeSelectView

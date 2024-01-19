@@ -35,7 +35,7 @@ class LogInView extends GetView<LogInController> {
                 text: "Please enter your phone number",
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
-                textColor: AppColor.textGreyColor,
+                textColor: AppColor.textGrayColor,
               ),
               Spacer(),
               CustomTextField(

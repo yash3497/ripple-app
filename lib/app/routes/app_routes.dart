@@ -10,6 +10,7 @@ abstract class Routes {
   static const REGISTER = _Paths.REGISTER;
   static const TRAINING_EXP = _Paths.TRAINING_EXP;
   static const SUCCESS_VIEW = _Paths.SUCCESS_VIEW;
+  static const DASHBOARD_VIEW = _Paths.DASHBOARD_VIEW;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const REGISTER = '/register';
   static const TRAINING_EXP = '/trainig-exp';
   static const SUCCESS_VIEW = '/success-view';
+  static const DASHBOARD_VIEW = '/dashboard-view';
 }

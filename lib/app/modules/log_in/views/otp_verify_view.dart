@@ -42,7 +42,7 @@ class OtpVerifyView extends GetView<LogInController> {
                       "Enter the verification code we just sent on your phone number.",
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColor.textGreyColor,
+                  textColor: AppColor.textGrayColor,
                 ),
                 addVerticalSpace(40),
                 Pinput(
