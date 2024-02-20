@@ -12,9 +12,9 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), () {
-      // Get.offAndToNamed(Routes.LOG_IN);
-      Get.offAndToNamed(Routes.HOME);
+    Future.delayed(const Duration(seconds: 4), () {
+      Get.offAndToNamed(Routes.ONBOARD);
+      // Get.offAndToNamed(Routes.HOME);
     });
     super.initState();
   }
@@ -23,7 +23,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset("assets/images/LOGO.png"),
+        child: Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: Image.asset("assets/images/logogif.gif"),
+        ),
       ),
     );
   }

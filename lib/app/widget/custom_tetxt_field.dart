@@ -16,6 +16,8 @@ class CustomTextField extends StatefulWidget {
   final TextStyle? style;
   final List<TextInputFormatter>? inputFormater;
   final FormFieldValidator<String>? validator;
+  final Function(String)? onChanged;
+  final bool readOnly;
 
   CustomTextField(
       {required this.hintText,
@@ -28,8 +30,10 @@ class CustomTextField extends StatefulWidget {
       this.onTap,
       this.keyboardType,
       this.style,
+      this.readOnly = false,
       this.inputFormater,
-      this.validator});
+      this.validator,
+      this.onChanged});
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -41,6 +45,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: widget.readOnly,
       onTap: widget.onTap,
       keyboardType: widget.keyboardType,
       controller: widget.controller,
@@ -48,6 +53,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       inputFormatters: widget.inputFormater,
       style: widget.style,
       validator: widget.validator,
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
         fillColor: widget.fillColor,
         filled: widget.isFill,

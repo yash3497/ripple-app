@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
 import 'package:ripple_healthcare/utils/app_colors.dart';
 
 import '../../utils/constant_variable.dart';
@@ -9,20 +10,25 @@ class AppButton extends StatelessWidget {
   final String buttonText;
   final Color bgColor;
   final Color txtcolor;
+  final Color borderColor;
   final double? btnwidth;
+  final double? btnHeight;
+  final double borderRadius;
 
-  AppButton({
-    required this.onPressed,
-    required this.buttonText,
-    this.bgColor = AppColor.greenColor,
-    this.txtcolor = Colors.white,
-    this.btnwidth,
-  });
+  AppButton(
+      {required this.onPressed,
+      required this.buttonText,
+      this.bgColor = AppColor.mainColor,
+      this.txtcolor = Colors.white,
+      this.borderColor = Colors.transparent,
+      this.btnwidth,
+      this.btnHeight = 52,
+      this.borderRadius = 10});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Get.height * 0.07,
+      height: btnHeight,
       width: btnwidth ?? width(context) * 0.9,
       child: ElevatedButton(
         onPressed: onPressed,
@@ -30,10 +36,16 @@ class AppButton extends StatelessWidget {
           primary: bgColor, // Background color
           onPrimary: txtcolor, // Text color
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8), // Button border radius
+            side: BorderSide(width: 1, color: borderColor),
+            borderRadius:
+                BorderRadius.circular(borderRadius), // Button border radius
           ),
         ),
-        child: Text(buttonText),
+        child: AppTextWidget(
+          text: buttonText,
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }

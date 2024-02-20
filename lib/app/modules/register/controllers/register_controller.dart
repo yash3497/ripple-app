@@ -21,7 +21,10 @@ class RegisterController extends GetxController {
   final TextEditingController fistNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
-  List genderList = ['Male', "Female", "Others"];
+  List genderList = [
+    'Male',
+    "Female",
+  ];
 
   List trainingExp = [
     {

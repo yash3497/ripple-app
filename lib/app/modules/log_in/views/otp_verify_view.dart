@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:ripple_healthcare/app/modules/log_in/controllers/log_in_controller.dart';
+import 'package:ripple_healthcare/app/routes/app_pages.dart';
 
 import 'package:ripple_healthcare/app/widget/app_button.dart';
 import 'package:ripple_healthcare/utils/app_colors.dart';
@@ -33,14 +34,14 @@ class OtpVerifyView extends GetView<LogInController> {
               children: [
                 addVerticalSpace(20),
                 AppTextWidget(
-                  text: "OTP Verification",
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+                  text: "Enter OTP code",
+                  fontSize: 28,
+                  fontWeight: FontWeight.w500,
                 ),
                 AppTextWidget(
                   text:
-                      "Enter the verification code we just sent on your phone number.",
-                  fontSize: 16,
+                      "A 4-digit OTP has been sent to your phone number ending with ******1111",
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                   textColor: AppColor.textGrayColor,
                 ),
@@ -68,8 +69,9 @@ class OtpVerifyView extends GetView<LogInController> {
                         color: AppColor.greenBorder,
                         fontWeight: FontWeight.w600),
                     decoration: BoxDecoration(
+                      color: AppColor.lightBgColor,
                       border: Border.all(
-                        color: AppColor.greenBorder,
+                        color: AppColor.mainColor,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -82,8 +84,9 @@ class OtpVerifyView extends GetView<LogInController> {
                         color: AppColor.black,
                         fontWeight: FontWeight.w600),
                     decoration: BoxDecoration(
+                      color: AppColor.lightBgColor,
                       border: Border.all(
-                        color: AppColor.greenBorder,
+                        color: AppColor.mainColor,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -98,24 +101,7 @@ class OtpVerifyView extends GetView<LogInController> {
                   showCursor: true,
                   onCompleted: (pin) => print(pin),
                 ),
-                addVerticalSpace(20),
-                AppButton(
-                    onPressed: () {
-                      if (controller.otpKey.currentState!.validate()) {
-                        // controller.verifyOtp();
-                        controller.login();
-                      }
-                    },
-                    buttonText: "Verify"),
-                addVerticalSpace(15),
-                GetBuilder<LogInController>(builder: (controller) {
-                  return Center(
-                      child: Text(
-                    "Request new code in 00:${controller.seconds}s",
-                    style: TextStyle(color: AppColor.textGrayColor),
-                  ));
-                }),
-                const Spacer(),
+                Spacer(),
                 Center(
                   child: RichText(
                       textAlign: TextAlign.center,
@@ -138,11 +124,45 @@ class OtpVerifyView extends GetView<LogInController> {
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
-                                    color: AppColor.greenColor),
+                                    color: AppColor.mainColor),
                               ),
                             ))
                       ])),
-                )
+                ),
+                addVerticalSpace(5),
+                Center(
+                  child: InkWell(
+                    onTap: () {
+                      controller.resendOtp();
+                    },
+                    child: const Text(
+                      " Change number?",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.mainColor),
+                    ),
+                  ),
+                ),
+                addVerticalSpace(15),
+                AppButton(
+                    onPressed: () {
+                      if (controller.otpKey.currentState!.validate()) {
+                        // controller.verifyOtp();
+                        // controller.login();
+
+                        Get.toNamed(Routes.SUCCESSLOGIN);
+                      }
+                    },
+                    buttonText: "Verify"),
+                addVerticalSpace(15),
+                // GetBuilder<LogInController>(builder: (controller) {
+                //   return Center(
+                //       child: Text(
+                //     "Request new code in 00:${controller.seconds}s",
+                //     style: TextStyle(color: AppColor.textGrayColor),
+                //   ));
+                // }),
               ],
             ),
           ),

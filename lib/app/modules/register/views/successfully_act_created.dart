@@ -15,7 +15,7 @@ class SuccessFullAccountCreated extends StatelessWidget {
             'assets/images/successImg.png',
             height: 150,
             width: 150,
-            color: AppColor.greenColor,
+            color: AppColor.mainColor,
           ),
           AppTextWidget(
             text: "Account Created!",

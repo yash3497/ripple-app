@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       title: "Ripple Healthcare",
       initialBinding: LogInBinding(),
       initialRoute: AppPages.INITIAL,
+      // initialRoute: Routes.HOME,
       getPages: AppPages.routes,
     );
   }

@@ -42,76 +42,77 @@ class RegisterView extends GetView<RegisterController> {
                   addVerticalSpace(20),
                   AppTextWidget(
                     text: controller.isAgeSelectView
-                        ? "Hi,${controller.fistNameController.text}"
-                        : "Enter Name",
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+                        ? "Select Your Gender"
+                        : "Enter Your Name",
+                    fontSize: 28,
+                    fontWeight: FontWeight.w500,
                   ),
                   AppTextWidget(
                     text: controller.isAgeSelectView
-                        ? "Please enter your age and gender."
-                        : "Please enter your name as per legal id.",
+                        ? ""
+                        : "Please enter your name as per your Voter ID",
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     textColor: AppColor.textGrayColor,
                   ),
-                  const Spacer(),
+                  addVerticalSpace(40),
                   !controller.isAgeSelectView
                       ? Column(
                           children: [
                             CustomTextField(
                               controller: controller.fistNameController,
-                              hintText: 'First Name',
+                              hintText: 'Enter Name',
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Enter your first name!";
+                                  return "Enter your name!";
                                 }
                                 return null;
                               },
                               isFill: true,
                               style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w500),
-                              suffixIcon:
-                                  const Icon(Icons.person_outline_rounded),
+                              // suffixIcon:
+                              //     const Icon(Icons.person_outline_rounded),
                             ),
                             addVerticalSpace(15),
-                            CustomTextField(
-                              controller: controller.lastNameController,
-                              isFill: true,
-                              hintText: 'Last Name',
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "Enter your last name!";
-                                }
-                                return null;
-                              },
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500),
-                            ),
+                            // CustomTextField(
+                            //   controller: controller.lastNameController,
+                            //   isFill: true,
+                            //   hintText: 'Last Name',
+                            //   validator: (value) {
+                            //     if (value == null || value.isEmpty) {
+                            //       return "Enter your last name!";
+                            //     }
+                            //     return null;
+                            //   },
+                            //   style: const TextStyle(
+                            //       fontSize: 18, fontWeight: FontWeight.w500),
+                            // ),
                           ],
                         )
                       : Column(
                           children: [
-                            CustomTextField(
-                              controller: controller.ageController,
-                              keyboardType: TextInputType.number,
-                              hintText: 'Enter Your Age',
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "Please enter your age";
-                                }
-                                return null;
-                              },
-                              isFill: true,
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500),
-                            ),
+                            // CustomTextField(
+                            //   controller: controller.ageController,
+                            //   keyboardType: TextInputType.number,
+                            //   hintText: 'Enter Your Age',
+                            //   validator: (value) {
+                            //     if (value == null || value.isEmpty) {
+                            //       return "Please enter your age";
+                            //     }
+                            //     return null;
+                            //   },
+                            //   isFill: true,
+                            //   style: const TextStyle(
+                            //       fontSize: 18, fontWeight: FontWeight.w500),
+                            // ),
                             addVerticalSpace(15),
                             SizedBox(
-                              height: Get.height * 0.06,
+                              // height: Get.height * 0.06,
                               child: ListView.builder(
+                                  shrinkWrap: true,
                                   itemCount: controller.genderList.length,
-                                  scrollDirection: Axis.horizontal,
+                                  scrollDirection: Axis.vertical,
                                   itemBuilder: (ctx, i) {
                                     return InkWell(
                                       onTap: () {
@@ -119,18 +120,18 @@ class RegisterView extends GetView<RegisterController> {
                                         controller.update();
                                       },
                                       child: Container(
+                                        height: Get.height * 0.07,
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 12),
-                                        margin:
-                                            const EdgeInsets.only(right: 15),
+                                        margin: const EdgeInsets.only(
+                                            right: 15, bottom: 10),
                                         decoration: BoxDecoration(
                                             border: Border.all(
-                                                color:
-                                                    controller.selectedGender ==
-                                                            i
-                                                        ? AppColor.black
-                                                        : AppColor.borderColor),
-                                            color: AppColor.fillColor,
+                                                color: AppColor.mainColor),
+                                            color:
+                                                controller.selectedGender == i
+                                                    ? AppColor.mainColor
+                                                    : AppColor.borderColor,
                                             borderRadius:
                                                 BorderRadius.circular(8)),
                                         child: Row(
@@ -142,7 +143,10 @@ class RegisterView extends GetView<RegisterController> {
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
                                                 textColor:
-                                                    AppColor.textGrayColor,
+                                                    controller.selectedGender ==
+                                                            i
+                                                        ? AppColor.white
+                                                        : AppColor.black,
                                               ),
                                               addHorizontalySpace(10),
                                               i == 0
@@ -166,49 +170,51 @@ class RegisterView extends GetView<RegisterController> {
                         ),
                   addVerticalSpace(40),
                   const Spacer(),
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 8,
+                          width: 8,
+                          decoration: kFillBoxDecoration(
+                              0,
+                              controller.isAgeSelectView == false
+                                  ? AppColor.mainColor
+                                  : AppColor.borderColor,
+                              5),
+                        ),
+                        addHorizontalySpace(7),
+                        Container(
+                          height: 8,
+                          width: 8,
+                          decoration: kFillBoxDecoration(
+                              0,
+                              controller.isAgeSelectView == true
+                                  ? AppColor.mainColor
+                                  : AppColor.borderColor,
+                              5),
+                        ),
+                      ],
+                    ),
+                  ),
+                  addVerticalSpace(15),
                   AppButton(
                       onPressed: () {
                         if (controller.registerFormKey.currentState
                                 ?.validate() ??
                             false) {
                           if (controller.isAgeSelectView) {
-                            Get.toNamed(Routes.TRAINING_EXP);
+                            Get.toNamed(Routes.LOG_IN);
                           } else {
                             controller.isAgeSelectView = true;
                             controller.update();
                           }
                         }
                       },
-                      buttonText: "Next"),
+                      buttonText:
+                          controller.isAgeSelectView ? "Continue" : "Next"),
                   addVerticalSpace(20),
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 6,
-                          width: 22,
-                          decoration: kFillBoxDecoration(
-                              0,
-                              controller.isAgeSelectView == false
-                                  ? AppColor.black
-                                  : AppColor.borderColor,
-                              5),
-                        ),
-                        addHorizontalySpace(7),
-                        Container(
-                          height: 6,
-                          width: 22,
-                          decoration: kFillBoxDecoration(
-                              0,
-                              controller.isAgeSelectView == true
-                                  ? AppColor.black
-                                  : AppColor.borderColor,
-                              5),
-                        ),
-                      ],
-                    ),
-                  )
                 ],
               ),
             ),
