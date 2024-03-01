@@ -12,7 +12,7 @@ class RegisterController extends GetxController {
   //TODO: Implement RegisterController
   RxBool tempBool = true.obs;
 
-  bool isAgeSelectView = false;
+  int isAgeSelectView = 0;
 
   int selectedGender = 0;
 
