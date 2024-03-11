@@ -36,7 +36,9 @@ class _SteadyStepTestDoneViewState extends State<SteadyStepTestDoneView> {
         return false;
       },
       child: Scaffold(
-        appBar: CommanAppbar(),
+        appBar: CommanAppbar(
+          isSteadyStep: true,
+        ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: GetBuilder<SteadyStepBalanceTestController>(

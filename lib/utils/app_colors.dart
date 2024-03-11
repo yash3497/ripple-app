@@ -11,6 +11,7 @@ class AppColor {
   static const Color lightBgColor = Color(0xFFCDF6FF);
   static const Color borderColor = Color(0xFFE8ECF4);
   static const Color greenBorder = Color(0xFF7BCE5D);
+  static const Color darkGreen = Color(0xFF40A35A);
   static const Color errorColor = Color(0xFFF0594F);
   static const Color fillColor = Color(0xFFF7F8F9);
   static const Color textGrayColor = Color(0xFF5B5B5B);
