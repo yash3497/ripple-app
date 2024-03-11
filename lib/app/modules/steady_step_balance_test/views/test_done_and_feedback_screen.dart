@@ -122,7 +122,9 @@ class FeedBackScreen extends StatelessWidget {
               textColor: AppColor.purpleColor,
             ),
             Spacer(),
-            controller.balanceTests[controller.test].feedback.length > 3
+            controller.balanceTests[controller.test]
+                        .feedback[controller.feedback].options.length >
+                    3
                 ? Column(
                     children: [
                       AppTextWidget(
