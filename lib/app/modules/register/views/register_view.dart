@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:ripple_healthcare/app/modules/log_in/controllers/log_in_controller.dart';
 import 'package:ripple_healthcare/app/routes/app_pages.dart';
 import 'package:ripple_healthcare/app/widget/app_button.dart';
 import 'package:ripple_healthcare/app/widget/custom_tetxt_field.dart';
@@ -224,7 +225,16 @@ class RegisterView extends GetView<RegisterController> {
                                   ?.validate() ??
                               false) {
                             if (controller.isAgeSelectView > 1) {
-                              Get.toNamed(Routes.LOG_IN);
+                              Get.put(LogInController()).users.name =
+                                  controller.fistNameController.text;
+                              Get.put(LogInController()).users.gender =
+                                  controller.selectedGender == 0
+                                      ? "Male"
+                                      : "Female";
+                              Get.put(LogInController()).users.age =
+                                  int.parse(controller.ageController.text);
+                              Get.toNamed(Routes.LOG_IN,
+                                  arguments: {'register': true});
                             } else {
                               controller.isAgeSelectView++;
                               print(controller.isAgeSelectView);

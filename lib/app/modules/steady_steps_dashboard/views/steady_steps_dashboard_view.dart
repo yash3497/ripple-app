@@ -1,76 +1,102 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
 import 'package:ripple_healthcare/app/modules/home/views/bottom_navigation_bar.dart';
+import 'package:ripple_healthcare/app/modules/steady_step_balance_test/controllers/steady_step_balance_test_controller.dart';
+import 'package:ripple_healthcare/app/modules/steady_steps_dashboard/controllers/steady_steps_dashboard_controller.dart';
 import 'package:ripple_healthcare/app/modules/steady_steps_onboarding/views/steady_steps_onboard_flow.dart';
 import 'package:ripple_healthcare/app/routes/app_pages.dart';
 import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
 import 'package:ripple_healthcare/utils/app_colors.dart';
 import 'package:ripple_healthcare/utils/constant_variable.dart';
 
-import '../controllers/steady_steps_dashboard_controller.dart';
-
-class SteadyStepsDashboardView extends GetView<SteadyStepsDashboardController> {
+class SteadyStepsDashboardView extends StatefulWidget {
   const SteadyStepsDashboardView({Key? key}) : super(key: key);
+
+  @override
+  State<SteadyStepsDashboardView> createState() =>
+      _SteadyStepsDashboardViewState();
+}
+
+class _SteadyStepsDashboardViewState extends State<SteadyStepsDashboardView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.put(SteadyStepsDashboardController()).fetchUserData();
+    Get.put(SteadyStepBalanceTestController()).fetchBalanceTest();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const CommanAppbar(
           isSteadyStep: true,
         ),
-        body: CustomGradientBackground(
-            padding: 0,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppTextWidget(
-                      text: "Hello Anjali👋",
-                      fontSize: 28,
-                      fontWeight: FontWeight.w500,
-                      textColor: AppColor.steadyTextColor,
-                    ),
-                    AppTextWidget(
-                      text: "Start your day with",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      textColor: AppColor.black,
-                    ),
-                    addVerticalSpace(15),
-                    ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return SteadyStepCategoryCard(
-                            img: controller.SteadyStepCat[index]['img'],
-                            subTitle: controller.SteadyStepCat[index]
-                                ['subTitle'],
-                            title: controller.SteadyStepCat[index]['title'],
-                            onTap: () {
-                              if (index == 0) {
-                                Get.toNamed(Routes.BALANCE_TESTING);
-                              } else if (index == 1) {
-                                Get.toNamed(Routes.STEADY_STEP_PROGRESS);
-                              } else if (index == 2) {
-                                Get.toNamed(Routes.DAILY_CHALLENGES);
-                              } else if (index == 3) {
-                                Get.toNamed(Routes.STEADY_STEP_BALANCE_TEST);
-                              } else if (index == 4) {
-                                Get.toNamed(Routes.REWARD);
-                              }
-                            },
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return addVerticalSpace(15);
-                        },
-                        itemCount: controller.SteadyStepCat.length)
-                  ],
+        body: GetBuilder<SteadyStepsDashboardController>(builder: (controller) {
+          return CustomGradientBackground(
+              padding: 0,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppTextWidget(
+                        text: "Hello ${controller.users.name}👋",
+                        fontSize: 28,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColor.steadyTextColor,
+                      ),
+                      AppTextWidget(
+                        text: "Start your day with",
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColor.black,
+                      ),
+                      addVerticalSpace(15),
+                      ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return SteadyStepCategoryCard(
+                              img: controller.SteadyStepCat[index]['img'],
+                              subTitle: controller.SteadyStepCat[index]
+                                  ['subTitle'],
+                              title: controller.SteadyStepCat[index]['title'],
+                              onTap: () {
+                                // if (index == 0) {
+                                //   Get.toNamed(Routes.BALANCE_TESTING);
+                                // } else if (index == 1) {
+                                //   Get.toNamed(Routes.STEADY_STEP_PROGRESS);
+                                // } else if (index == 2) {
+                                //   Get.toNamed(Routes.DAILY_CHALLENGES);
+                                // } else if (index == 3) {
+                                //   Get.toNamed(Routes.STEADY_STEP_BALANCE_TEST);
+                                // } else if (index == 4) {
+                                //   Get.toNamed(Routes.REWARD);
+                                // }
+                                if (Get.find<SteadyStepBalanceTestController>()
+                                    .balanceTests
+                                    .isNotEmpty) {
+                                  Get.toNamed(Routes.STEADY_STEP_BALANCE_TEST);
+                                } else {
+                                  Fluttertoast.showToast(
+                                      msg: "Wait test is loading...");
+                                }
+                              },
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return addVerticalSpace(15);
+                          },
+                          itemCount: controller.SteadyStepCat.length)
+                    ],
+                  ),
                 ),
-              ),
-            )));
+              ));
+        }));
   }
 }
 

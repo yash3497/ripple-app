@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:ripple_healthcare/app/modules/home/views/bottom_navigation_bar.dart';
-import 'package:ripple_healthcare/app/modules/steady_steps_onboarding/views/steady_steps_onboard_flow.dart';
+import 'package:ripple_healthcare/app/modules/steady_step_balance_test/views/steady_steps_balance_test2.dart';
 import 'package:ripple_healthcare/app/routes/app_pages.dart';
 import 'package:ripple_healthcare/app/widget/app_button.dart';
 import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
@@ -40,8 +40,12 @@ class SteadyStepBalanceTestView
               children: [
                 InkWell(
                   onTap: () {
-                    controller.isInstructionTab = false;
-                    controller.update();
+                    if (controller.isInstructionTab) {
+                      controller.isInstructionTab = false;
+                      controller.update();
+                    } else {
+                      Get.back();
+                    }
                   },
                   child: Row(
                     children: [
@@ -61,7 +65,7 @@ class SteadyStepBalanceTestView
                 ),
                 addVerticalSpace(Get.height * 0.06),
                 AppTextWidget(
-                  text: "4 stage Balance Test",
+                  text: "${controller.balanceTests[controller.test].title}",
                   fontSize: 50,
                   textColor: AppColor.white,
                 ),
@@ -69,26 +73,20 @@ class SteadyStepBalanceTestView
                 !controller.isInstructionTab
                     ? AppTextWidget(
                         text:
-                            "The Four Stage Balance Test is a validated measure recommended to screen individuals for fall risk.",
+                            "${controller.balanceTests[controller.test].description}",
                         fontSize: 16,
                         textColor: AppColor.white,
                       )
-                    : Column(
-                        children: [
-                          AppTextWidget(
+                    : SizedBox(
+                        height: height(context) * .4,
+                        child: SingleChildScrollView(
+                          child: AppTextWidget(
                             text:
-                                "There are four standing positions that you need to perform, each for 10 seconds.",
+                                "${controller.balanceTests[controller.test].instructions.replaceAll("\\n", "\n")}",
                             fontSize: 16,
                             textColor: AppColor.white,
                           ),
-                          addVerticalSpace(5),
-                          AppTextWidget(
-                            text:
-                                "1.Stand with your feet side by side.\n2.Place the instep of one foot so it is touching the big toe of the other foot.\n3. Tandem stance, place one foot in front of the other, heel touching toes.\n4.sStand on one foot.\n\nFor optimal results we advise you to complete all the stages.",
-                            fontSize: 16,
-                            textColor: AppColor.white,
-                          ),
-                        ],
+                        ),
                       ),
                 Spacer(),
                 if (!controller.isInstructionTab)
@@ -103,7 +101,12 @@ class SteadyStepBalanceTestView
                 addVerticalSpace(10),
                 AppButton(
                   onPressed: () {
-                    Get.toNamed(Routes.STEADY_STEP_STAGE_VIEW);
+                    if (controller
+                        .balanceTests[controller.test].stages.isNotEmpty) {
+                      Get.toNamed(Routes.STEADY_STEP_STAGE_VIEW);
+                    } else {
+                      Get.off(() => SteadyStepBalanceTest2());
+                    }
                   },
                   buttonText: "Take Test",
                   bgColor: AppColor.buttonLightColor2,

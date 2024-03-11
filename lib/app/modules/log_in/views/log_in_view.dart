@@ -84,7 +84,9 @@ class LogInView extends GetView<LogInController> {
                 AppButton(
                   onPressed: () {
                     if (controller.formKey.currentState!.validate()) {
-                      controller.sendOtp();
+                      controller.sendOtp(Get.arguments != null
+                          ? Get.arguments['register']
+                          : false);
                     }
                   },
                   buttonText: "Proceed",

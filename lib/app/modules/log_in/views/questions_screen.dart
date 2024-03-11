@@ -128,6 +128,10 @@ class QuestionsScreen extends GetView<LogInController> {
                         duration: Duration(milliseconds: 500),
                         curve: Curves.easeInOut);
                     controller.indicator++;
+                    Get.find<LogInController>()
+                        .users
+                        .questions
+                        .add({"q${controller.indicator}": true});
                     controller.update(); // Update the UI
                     // }
                     if (controller.indicator >
@@ -146,6 +150,10 @@ class QuestionsScreen extends GetView<LogInController> {
                         duration: Duration(milliseconds: 500),
                         curve: Curves.easeInOut);
                     controller.indicator++;
+                    Get.find<LogInController>()
+                        .users
+                        .questions
+                        .add({"q${controller.indicator}": false});
                     controller.update(); // Update the UI
                     // }
                     if (controller.indicator >
@@ -230,7 +238,7 @@ class BodyPartScreen extends GetView<LogInController> {
                   ),
                   Positioned(
                     right: Get.width * 0.17,
-                    top: Get.height * 0.19,
+                    top: Get.height * 0.2,
                     child: BulletAndTextWidget(
                       title: "Elbow",
                       isSelected: controller.elbow,
@@ -242,7 +250,7 @@ class BodyPartScreen extends GetView<LogInController> {
                   ),
                   Positioned(
                     right: Get.width * 0.06,
-                    top: Get.height * 0.26,
+                    top: Get.height * 0.28,
                     child: BulletAndTextWidget(
                       title: "Wrist/Hand",
                       isSelected: controller.wrist,
@@ -314,7 +322,7 @@ class BodyPartScreen extends GetView<LogInController> {
                   ),
                   Positioned(
                     left: Get.width * 0.26,
-                    bottom: Get.height * 0.23,
+                    bottom: Get.height * 0.3,
                     child: BulletAndTextWidgetLeft(
                       title: "Hip",
                       isSelected: controller.hip,
@@ -326,7 +334,7 @@ class BodyPartScreen extends GetView<LogInController> {
                   ),
                   Positioned(
                     left: Get.width * 0.19,
-                    bottom: Get.height * 0.29,
+                    bottom: Get.height * 0.35,
                     child: BulletAndTextWidgetLeft(
                       title: "Stomach",
                       isSelected: controller.stomach,
@@ -338,7 +346,7 @@ class BodyPartScreen extends GetView<LogInController> {
                   ),
                   Positioned(
                     left: Get.width * 0.22,
-                    top: Get.height * 0.12,
+                    top: Get.height * 0.13,
                     child: BulletAndTextWidgetLeft(
                       title: "Chest",
                       isSelected: controller.chest,
@@ -353,7 +361,44 @@ class BodyPartScreen extends GetView<LogInController> {
               Spacer(),
               AppButton(
                   onPressed: () {
-                    Get.toNamed(Routes.HOME);
+                    if (controller.head) {
+                      controller.users.pain.add("Head");
+                    }
+                    if (controller.shoulder) {
+                      controller.users.pain.add("Shoulder");
+                    }
+                    if (controller.chest) {
+                      controller.users.pain.add("Chest");
+                    }
+                    if (controller.elbow) {
+                      controller.users.pain.add("Elbow");
+                    }
+                    if (controller.wrist) {
+                      controller.users.pain.add("Wrist");
+                    }
+                    if (controller.stomach) {
+                      controller.users.pain.add("Stomach");
+                    }
+                    if (controller.hip) {
+                      controller.users.pain.add("Hip");
+                    }
+                    if (controller.thigh) {
+                      controller.users.pain.add("Thigh");
+                    }
+                    if (controller.knee) {
+                      controller.users.pain.add("Knee");
+                    }
+                    if (controller.shin) {
+                      controller.users.pain.add("Shin");
+                    }
+                    if (controller.foot) {
+                      controller.users.pain.add("Foot");
+                    }
+                    if (controller.ankle) {
+                      controller.users.pain.add("Ankle");
+                    }
+                    print(controller.users.toJson());
+                    controller.register();
                   },
                   buttonText: "Done"),
               addVerticalSpace(15),

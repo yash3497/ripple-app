@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ripple_healthcare/app/modules/log_in/controllers/log_in_controller.dart';
 import 'package:ripple_healthcare/app/routes/app_pages.dart';
 import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
 import 'package:ripple_healthcare/utils/app_colors.dart';
@@ -7,7 +8,7 @@ import 'package:ripple_healthcare/utils/constant_variable.dart';
 
 import '../../../widget/app_button.dart';
 
-class HelloScreen extends StatelessWidget {
+class HelloScreen extends GetView<LogInController> {
   const HelloScreen({super.key});
 
   @override
@@ -24,7 +25,7 @@ class HelloScreen extends StatelessWidget {
               fontSize: 28,
             ),
             AppTextWidget(
-              text: "Anjali Sharma 👋",
+              text: "${controller.users.name} 👋",
               fontSize: 28,
               fontWeight: FontWeight.w500,
               textColor: AppColor.textGreenColor,

@@ -40,7 +40,7 @@ class OtpVerifyView extends GetView<LogInController> {
                 ),
                 AppTextWidget(
                   text:
-                      "A 4-digit OTP has been sent to your phone number ending with ******1111",
+                      "A 4-digit OTP has been sent to your phone number ending with ******${controller.phoneNumberController.text.substring(6, 10)}",
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   textColor: AppColor.textGrayColor,
@@ -117,7 +117,7 @@ class OtpVerifyView extends GetView<LogInController> {
                             alignment: PlaceholderAlignment.middle,
                             child: InkWell(
                               onTap: () {
-                                controller.resendOtp();
+                                controller.resendOtp(Get.arguments['register']);
                               },
                               child: const Text(
                                 " Resend",
@@ -133,7 +133,7 @@ class OtpVerifyView extends GetView<LogInController> {
                 Center(
                   child: InkWell(
                     onTap: () {
-                      controller.resendOtp();
+                      Get.back();
                     },
                     child: const Text(
                       " Change number?",
@@ -149,9 +149,13 @@ class OtpVerifyView extends GetView<LogInController> {
                     onPressed: () {
                       if (controller.otpKey.currentState!.validate()) {
                         // controller.verifyOtp();
-                        // controller.login();
-
-                        Get.toNamed(Routes.SUCCESSLOGIN);
+                        if (Get.arguments['register']) {
+                          controller.users.phoneNo =
+                              int.parse(controller.phoneNumberController.text);
+                          Get.toNamed(Routes.HELLO_SCREEN);
+                        } else {
+                          controller.login();
+                        }
                       }
                     },
                     buttonText: "Verify"),

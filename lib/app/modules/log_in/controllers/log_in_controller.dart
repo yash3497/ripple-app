@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:ripple_healthcare/app/routes/app_pages.dart';
+import 'package:ripple_healthcare/model/users.dart';
 import 'package:ripple_healthcare/services/http_services.dart';
 import 'package:ripple_healthcare/services/storage_service.dart';
 import 'package:ripple_healthcare/utils/api_constants.dart';
@@ -32,6 +33,9 @@ class LogInController extends GetxController {
   bool stomach = false;
   bool chest = false;
 
+  Users users =
+      Users(phoneNo: 0, name: "", gender: "", age: 0, questions: [], pain: []);
+
   updateTimer() {
     _timer = Timer.periodic(
       const Duration(seconds: 1),
@@ -46,7 +50,7 @@ class LogInController extends GetxController {
     );
   }
 
-  sendOtp() async {
+  sendOtp(bool register) async {
     try {
       // var response = await HttpServices.get(
       //     '${ApiConstants.twoFactorUrl}/+91${phoneNumberController.text}/AUTOGEN3');
@@ -59,7 +63,7 @@ class LogInController extends GetxController {
       //   print('Failed to generate OTP');
       //   Fluttertoast.showToast(msg: 'Network Error');
       // }
-      Get.toNamed(Routes.OTP_VERIFY);
+      Get.toNamed(Routes.OTP_VERIFY, arguments: {'register': register});
     } catch (e) {
       print("Error in sending OTP $e");
     }
@@ -77,10 +81,10 @@ class LogInController extends GetxController {
     }
   }
 
-  resendOtp() async {
+  resendOtp(bool register) async {
     seconds = 30;
     updateTimer();
-    sendOtp();
+    sendOtp(register);
   }
 
   login() async {
@@ -92,10 +96,34 @@ class LogInController extends GetxController {
           await HttpServices.post(ApiConstants.login, jsonEncode(body));
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
+        print(data);
         StorageService().write(DbKeys.token, data['token']);
-        Get.toNamed(Routes.HOME);
+        StorageService().write(DbKeys.phoneNo, phoneNumberController.text);
+        Get.toNamed(Routes.STEADY_STEPS_ONBOARDING);
       } else if (response.statusCode == 404) {
         Fluttertoast.showToast(msg: 'Please create an account.');
+        Get.toNamed(Routes.REGISTER);
+      } else {
+        Fluttertoast.showToast(msg: 'Something went wrong!');
+        print('Login Failed ${response.statusCode}');
+      }
+    } catch (e) {
+      print("Login error : $e");
+    }
+  }
+
+  register() async {
+    try {
+      var response = await HttpServices.post(
+          ApiConstants.register, jsonEncode(users.toJson()));
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        print(data);
+        StorageService().write(DbKeys.token, data['token']);
+        StorageService().write(DbKeys.phoneNo, phoneNumberController.text);
+        Get.toNamed(Routes.STEADY_STEPS_ONBOARDING);
+      } else if (response.statusCode == 404) {
+        Fluttertoast.showToast(msg: 'Data not found!');
         Get.toNamed(Routes.REGISTER);
       } else {
         Fluttertoast.showToast(msg: 'Something went wrong!');

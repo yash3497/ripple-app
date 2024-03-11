@@ -8,6 +8,7 @@ import '../controllers/steady_steps_onboarding_controller.dart';
 class SteadyStepsOnboardingView
     extends GetView<SteadyStepsOnboardingController> {
   const SteadyStepsOnboardingView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SteadyStepsOnboardingController>(initState: (state) {
@@ -20,7 +21,7 @@ class SteadyStepsOnboardingView
         children: [
           Spacer(),
           Container(
-            height: Get.height * 0.83,
+            height: Get.height * .83,
             width: Get.width,
             decoration: const BoxDecoration(
                 image: DecorationImage(
