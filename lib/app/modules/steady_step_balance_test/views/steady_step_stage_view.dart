@@ -5,6 +5,7 @@ import 'package:ripple_healthcare/app/modules/steady_step_balance_test/controlle
 import 'package:ripple_healthcare/app/modules/steady_steps_onboarding/views/steady_steps_onboard_flow.dart';
 import 'package:ripple_healthcare/app/widget/app_button.dart';
 import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
+import 'package:ripple_healthcare/services/app_services.dart';
 import 'package:ripple_healthcare/utils/app_colors.dart';
 import 'package:ripple_healthcare/utils/constant_variable.dart';
 
@@ -33,13 +34,13 @@ class SteadyStepStageView extends StatelessWidget {
                           AppTextWidget(
                             text:
                                 "Stage ${controller.stageCounter + 1} will start in",
-                            fontSize: 28,
+                            fontSize: 24,
                             // fontWeight: FontWeight.w600,
                             textColor: AppColor.purpleColor,
                           ),
                           AppTextWidget(
                             text: controller.testStartTimer.toString(),
-                            fontSize: 50,
+                            fontSize: 100,
                             fontWeight: FontWeight.w600,
                             textColor: AppColor.steadyTextColor,
                           ),
@@ -53,12 +54,12 @@ class SteadyStepStageView extends StatelessWidget {
                           AppTextWidget(
                             text:
                                 "${controller.balanceTests[controller.test].title}",
-                            fontSize: 24,
+                            fontSize: 28,
                             textColor: AppColor.purpleColor,
                           ),
                         AppTextWidget(
                           text: "Stage ${controller.stageCounter + 1}:",
-                          fontSize: 28,
+                          fontSize: 24,
                           textColor: AppColor.purpleColor,
                         ),
                         addVerticalSpace(5),
@@ -72,7 +73,8 @@ class SteadyStepStageView extends StatelessWidget {
                         controller.testIsStart
                             ? Center(
                                 child: AppTextWidget(
-                                  text: "0:${controller.testPlayTimer}",
+                                  text:
+                                      "${AppServices.formatSecondsToTimeString(controller.testPlayTimer)}",
                                   fontSize: 40,
                                   fontWeight: FontWeight.w600,
                                   textColor: controller.testPlayTimer < 6

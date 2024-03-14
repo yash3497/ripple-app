@@ -7,6 +7,7 @@ class BalanceTest {
   final List<Feedbacks> feedback;
   final int rank;
   final String shortDescription;
+  final int timer;
 
   BalanceTest(
       {required this.title,
@@ -16,20 +17,23 @@ class BalanceTest {
       required this.stages,
       required this.feedback,
       required this.rank,
-      required this.shortDescription});
+      required this.shortDescription,
+      required this.timer});
 
   factory BalanceTest.fromJson(Map<String, dynamic> json) => BalanceTest(
-      title: json['title'],
-      description: json['description'],
-      instructions: json['instructions'],
-      demo: json['demo'] ?? "",
-      stages: json['stages'] != null
-          ? List<Stages>.from(json['stages'].map((e) => Stages.fromJson(e)))
-          : [],
-      feedback: List<Feedbacks>.from(
-          json['feedback'].map((e) => Feedbacks.fromJson(e))),
-      rank: json['rank'] ?? 0,
-      shortDescription: json['shortDescription'] ?? "");
+        title: json['title'],
+        description: json['description'],
+        instructions: json['instructions'],
+        demo: json['demo'] ?? "",
+        stages: json['stages'] != null
+            ? List<Stages>.from(json['stages'].map((e) => Stages.fromJson(e)))
+            : [],
+        feedback: List<Feedbacks>.from(
+            json['feedback'].map((e) => Feedbacks.fromJson(e))),
+        rank: json['rank'] ?? 0,
+        shortDescription: json['shortDescription'] ?? "",
+        timer: json['timer'],
+      );
 
   Map<String, dynamic> toJson() => {
         'title': title,
@@ -40,6 +44,7 @@ class BalanceTest {
         'feedback': feedback.map((e) => e.toJson()),
         'rank': rank,
         'shortDescription': shortDescription,
+        'timer': timer,
       };
 }
 

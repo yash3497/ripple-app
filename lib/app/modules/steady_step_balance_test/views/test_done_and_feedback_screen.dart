@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ripple_healthcare/app/modules/home/views/bottom_navigation_bar.dart';
 import 'package:ripple_healthcare/app/modules/steady_step_balance_test/controllers/steady_step_balance_test_controller.dart';
-import 'package:ripple_healthcare/app/modules/steady_step_balance_test/views/steady_steps_balance_test2.dart';
+import 'package:ripple_healthcare/app/modules/steady_step_balance_test/views/your_balance_view.dart';
 import 'package:ripple_healthcare/app/modules/steady_steps_onboarding/views/steady_steps_onboard_flow.dart';
 import 'package:ripple_healthcare/app/routes/app_pages.dart';
 import 'package:ripple_healthcare/app/widget/app_button.dart';
@@ -157,9 +157,36 @@ class FeedBackScreen extends StatelessWidget {
                                           1) {
                                     if (controller.test ==
                                         controller.balanceTests.length - 1) {
+                                      Get.to(() => YourBalanceAgeView());
                                     } else {
+                                      if (controller
+                                                  .balanceTests[controller.test]
+                                                  .feedback[controller.feedback]
+                                                  .options[index] ==
+                                              "Stage 1" ||
+                                          controller
+                                                  .balanceTests[controller.test]
+                                                  .feedback[controller.feedback]
+                                                  .options[index] ==
+                                              "Stage 2") {
+                                        controller.fourstages = 8;
+                                      } else if (controller
+                                              .balanceTests[controller.test]
+                                              .feedback[controller.feedback]
+                                              .options[index] ==
+                                          "Stage 3") {
+                                        controller.fourstages = 6;
+                                      } else if (controller
+                                              .balanceTests[controller.test]
+                                              .feedback[controller.feedback]
+                                              .options[index] ==
+                                          "Stage 4") {
+                                        controller.fourstages = 4;
+                                      }
                                       controller.test++;
                                       controller.isInstructionTab = false;
+                                      controller.stageCounter = 0;
+                                      controller.feedback = 0;
                                       Get.toNamed(
                                           Routes.STEADY_STEP_BALANCE_TEST);
                                     }
@@ -185,9 +212,13 @@ class FeedBackScreen extends StatelessWidget {
                                   1) {
                             if (controller.test ==
                                 controller.balanceTests.length - 1) {
+                              controller.stand = 4;
+                              Get.to(() => YourBalanceAgeView());
                             } else {
                               controller.test++;
                               controller.isInstructionTab = false;
+                              controller.feedback = 0;
+                              controller.stageCounter = 0;
                               Get.toNamed(Routes.STEADY_STEP_BALANCE_TEST);
                             }
                           } else {
@@ -203,9 +234,13 @@ class FeedBackScreen extends StatelessWidget {
                         onPressed: () {
                           if (controller.test ==
                               controller.balanceTests.length - 1) {
+                            controller.stand = 8;
+                            Get.to(() => YourBalanceAgeView());
                           } else {
                             controller.test++;
                             controller.isInstructionTab = false;
+                            controller.stageCounter = 0;
+                            controller.feedback = 0;
                             Get.toNamed(Routes.STEADY_STEP_BALANCE_TEST);
                           }
                         },

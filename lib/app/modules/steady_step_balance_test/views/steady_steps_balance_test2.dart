@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ripple_healthcare/app/modules/home/views/bottom_navigation_bar.dart';
 import 'package:ripple_healthcare/app/modules/steady_step_balance_test/controllers/steady_step_balance_test_controller.dart';
+import 'package:ripple_healthcare/app/modules/steady_step_balance_test/views/test_done_and_feedback_screen.dart';
 import 'package:ripple_healthcare/app/modules/steady_steps_onboarding/views/steady_steps_onboard_flow.dart';
 import 'package:ripple_healthcare/app/widget/app_button.dart';
 import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
+import 'package:ripple_healthcare/services/app_services.dart';
 import 'package:ripple_healthcare/utils/app_colors.dart';
 import 'package:ripple_healthcare/utils/constant_variable.dart';
 
@@ -33,13 +35,13 @@ class SteadyStepBalanceTest2 extends StatelessWidget {
                           AppTextWidget(
                             text:
                                 "${controller.balanceTests[controller.test].title} will start in",
-                            fontSize: 28,
+                            fontSize: 24,
                             // fontWeight: FontWeight.w600,
                             textColor: AppColor.purpleColor,
                           ),
                           AppTextWidget(
                             text: controller.testStartTimer.toString(),
-                            fontSize: 50,
+                            fontSize: 100,
                             fontWeight: FontWeight.w600,
                             textColor: AppColor.steadyTextColor,
                           ),
@@ -52,7 +54,7 @@ class SteadyStepBalanceTest2 extends StatelessWidget {
                         AppTextWidget(
                           text:
                               "${controller.balanceTests[controller.test].title}",
-                          fontSize: 24,
+                          fontSize: 28,
                           textColor: AppColor.purpleColor,
                         ),
                         addVerticalSpace(5),
@@ -66,7 +68,8 @@ class SteadyStepBalanceTest2 extends StatelessWidget {
                         controller.testIsStart
                             ? Center(
                                 child: AppTextWidget(
-                                  text: "0:${controller.testPlayTimer2}",
+                                  text:
+                                      "${AppServices.formatSecondsToTimeString(controller.testPlayTimer2)}",
                                   fontSize: 40,
                                   fontWeight: FontWeight.w600,
                                   textColor: controller.testPlayTimer < 6
@@ -86,15 +89,31 @@ class SteadyStepBalanceTest2 extends StatelessWidget {
                         if (!controller.testIsStart)
                           AppButton(
                             onPressed: () {
-                              controller.startTimer2();
-                              if (controller.stageCounter ==
-                                  controller.balanceTests[controller.test]
-                                          .stages.length -
-                                      1) {
-                                controller.testEnd = true;
+                              if (controller
+                                      .balanceTests[controller.test].timer ==
+                                  0) {
+                                controller.startTimer3(controller
+                                    .balanceTests[controller.test].timer);
+                              } else {
+                                controller.startTimer2(controller
+                                    .balanceTests[controller.test].timer);
                               }
                             },
                             buttonText: "Start Test",
+                            bgColor: AppColor.steadyTextColor,
+                          ),
+                        if (controller.balanceTests[controller.test].timer ==
+                                0 &&
+                            controller.testIsStart)
+                          AppButton(
+                            onPressed: () {
+                              controller.testIsStart = false;
+                              controller.timer3.cancel();
+                              controller.exerciseTimer
+                                  .add(controller.testPlayTimer2);
+                              Get.to(() => SteadyStepTestDoneView());
+                            },
+                            buttonText: "End Test",
                             bgColor: AppColor.steadyTextColor,
                           ),
                       ],
