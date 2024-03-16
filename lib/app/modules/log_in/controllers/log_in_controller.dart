@@ -118,10 +118,7 @@ class LogInController extends GetxController {
           ApiConstants.register, jsonEncode(users.toJson()));
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        print(data);
-        StorageService().write(DbKeys.token, data['token']);
-        StorageService().write(DbKeys.phoneNo, phoneNumberController.text);
-        Get.toNamed(Routes.STEADY_STEPS_ONBOARDING);
+        login();
       } else if (response.statusCode == 404) {
         Fluttertoast.showToast(msg: 'Data not found!');
         Get.toNamed(Routes.REGISTER);
