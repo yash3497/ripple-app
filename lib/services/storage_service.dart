@@ -10,4 +10,8 @@ class StorageService {
   dynamic read(String key) async {
     return await box.read(key);
   }
+
+  dynamic clear() async {
+    await box.erase();
+  }
 }

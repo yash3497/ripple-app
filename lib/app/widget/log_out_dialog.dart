@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ripple_healthcare/app/routes/app_pages.dart';
 import 'package:ripple_healthcare/app/widget/app_button.dart';
 import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
+import 'package:ripple_healthcare/services/storage_service.dart';
 import 'package:ripple_healthcare/utils/constant_variable.dart';
 
 Future<T?> logoutDialog<T>(BuildContext context, String title) {
@@ -34,6 +35,7 @@ Future<T?> logoutDialog<T>(BuildContext context, String title) {
                     btnHeight: 40,
                     onPressed: () {
                       Navigator.pop(context);
+                      StorageService().clear();
                       Get.offNamedUntil(Routes.LOG_IN, (route) => true);
                     },
                     buttonText: "Exit",
