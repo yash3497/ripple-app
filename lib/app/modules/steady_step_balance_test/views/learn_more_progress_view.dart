@@ -21,7 +21,7 @@ class LearnMoreProgressView extends GetView<SteadyStepBalanceTestController> {
           onPressed: () {
             Get.back();
           },
-          buttonText: "Colse",
+          buttonText: "Close",
           bgColor: AppColor.steadyColorBlue,
         ),
       ),

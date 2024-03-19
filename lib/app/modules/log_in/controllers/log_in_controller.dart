@@ -52,29 +52,51 @@ class LogInController extends GetxController {
 
   sendOtp(bool register) async {
     try {
-      // var response = await HttpServices.get(
-      //     '${ApiConstants.twoFactorUrl}/+91${phoneNumberController.text}/AUTOGEN3');
-      // if (response.statusCode == 200) {
-      //   var data = jsonDecode(response.body);
-      //   otpSessionId = data['Details'];
-      //   Fluttertoast.showToast(msg: "OTP Sent Successfully");
-      //   Get.toNamed(Routes.OTP_VERIFY);
-      // } else {
-      //   print('Failed to generate OTP');
-      //   Fluttertoast.showToast(msg: 'Network Error');
-      // }
+      Map<String, dynamic> body = {
+        "Param1": "1107171041172782755",
+        "Param2": "91${phoneNumberController.text}",
+        "Param3": "417789AaETJKNT65f439dbP1"
+      };
+      var response = await HttpServices.post(
+          "${ApiConstants.otpUrl}?template_id=65f438cbd6fc056f6a2b8dc2&mobile=91${phoneNumberController.text}&authkey=417789AaETJKNT65f439dbP1",
+          jsonEncode(body));
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        if (data['type'] == 'success') {
+          Fluttertoast.showToast(msg: "OTP Sent Successfully");
+          Get.toNamed(Routes.OTP_VERIFY, arguments: {'register': register});
+        } else {
+          Fluttertoast.showToast(msg: "Something Went Wrong!");
+        }
+      } else {
+        print('Failed to generate OTP');
+        Fluttertoast.showToast(msg: 'Network Error');
+      }
       Get.toNamed(Routes.OTP_VERIFY, arguments: {'register': register});
     } catch (e) {
       print("Error in sending OTP $e");
     }
   }
 
-  verifyOtp() async {
+  verifyOtp(bool register) async {
     try {
-      var response = await HttpServices.get(
-          '${ApiConstants.verifyOtp}/$otpSessionId/${otpController.text}');
+      var response = await HttpServices.getWithHeader(
+          '${ApiConstants.verifyOtp}?otp=${otpController.text}&mobile=91${phoneNumberController.text}',
+          {
+            'authkey': '417789AaETJKNT65f439dbP1',
+          });
       if (response.statusCode == 200) {
-        login();
+        var data = jsonDecode(response.body);
+        if (data['type'] == 'success') {
+          if (register) {
+            users.phoneNo = int.parse(phoneNumberController.text);
+            Get.toNamed(Routes.SUCCESSLOGIN, arguments: {'register': true});
+          } else {
+            login();
+          }
+        } else {
+          Fluttertoast.showToast(msg: 'Wrong Otp!');
+        }
       }
     } catch (e) {
       print("Error in verifying OTP $e");
@@ -89,26 +111,34 @@ class LogInController extends GetxController {
 
   login() async {
     try {
-      Map body = {
-        'phoneNo': int.parse(phoneNumberController.text),
-      };
-      var response =
-          await HttpServices.post(ApiConstants.login, jsonEncode(body));
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        print(data);
-        StorageService().write(DbKeys.token, data['token']);
-        StorageService().write(DbKeys.phoneNo, phoneNumberController.text);
-        Get.toNamed(Routes.STEADY_STEPS_ONBOARDING);
-      } else if (response.statusCode == 404) {
-        Fluttertoast.showToast(msg: 'Please create an account.');
-        Get.toNamed(Routes.REGISTER);
-      } else {
-        Fluttertoast.showToast(msg: 'Something went wrong!');
-        print('Login Failed ${response.statusCode}');
-      }
+      loginApiCall(false);
     } catch (e) {
       print("Login error : $e");
+    }
+  }
+
+  loginApiCall(bool register) async {
+    Map body = {
+      'phoneNo': int.parse(phoneNumberController.text),
+    };
+    var response =
+        await HttpServices.post(ApiConstants.login, jsonEncode(body));
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print(data);
+      StorageService().write(DbKeys.token, data['token']);
+      StorageService().write(DbKeys.phoneNo, phoneNumberController.text);
+      if (register) {
+        Get.toNamed(Routes.STEADY_STEPS_ONBOARDING);
+      } else {
+        Get.toNamed(Routes.SUCCESSLOGIN, arguments: {'register': false});
+      }
+    } else if (response.statusCode == 404) {
+      Fluttertoast.showToast(msg: 'Please create an account.');
+      Get.toNamed(Routes.REGISTER);
+    } else {
+      Fluttertoast.showToast(msg: 'Something went wrong!');
+      print('Login Failed ${response.statusCode}');
     }
   }
 
@@ -118,7 +148,7 @@ class LogInController extends GetxController {
           ApiConstants.register, jsonEncode(users.toJson()));
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        login();
+        loginApiCall(true);
       } else if (response.statusCode == 404) {
         Fluttertoast.showToast(msg: 'Data not found!');
         Get.toNamed(Routes.REGISTER);

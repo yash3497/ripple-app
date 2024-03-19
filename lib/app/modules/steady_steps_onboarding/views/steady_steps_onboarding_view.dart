@@ -18,15 +18,15 @@ class SteadyStepsOnboardingView
     }, builder: (ct) {
       return Scaffold(
           body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Spacer(),
           Container(
             height: Get.height * .83,
             width: Get.width,
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/steadySteps.png"),
-                    fit: BoxFit.cover)),
+                    fit: BoxFit.fill)),
             child: Padding(
               padding: const EdgeInsets.all(18),
               child: Column(

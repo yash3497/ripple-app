@@ -56,11 +56,13 @@ class SteadyStepStageView extends StatelessWidget {
                                 "${controller.balanceTests[controller.test].title}",
                             fontSize: 28,
                             textColor: AppColor.purpleColor,
+                            fontWeight: FontWeight.w500,
                           ),
                         AppTextWidget(
                           text: "Stage ${controller.stageCounter + 1}:",
                           fontSize: 24,
                           textColor: AppColor.purpleColor,
+                          fontWeight: FontWeight.w500,
                         ),
                         addVerticalSpace(5),
                         AppTextWidget(

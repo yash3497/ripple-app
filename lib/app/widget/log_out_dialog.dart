@@ -11,6 +11,9 @@ Future<T?> logoutDialog<T>(BuildContext context, String title) {
       context: (context),
       builder: (context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           title: AppTextWidget(
             text: "Do you want to exit $title?",
             fontSize: 16,
@@ -36,7 +39,7 @@ Future<T?> logoutDialog<T>(BuildContext context, String title) {
                     onPressed: () {
                       Navigator.pop(context);
                       StorageService().clear();
-                      Get.offNamedUntil(Routes.LOG_IN, (route) => true);
+                      Get.offAllNamed(Routes.LOG_IN);
                     },
                     buttonText: "Exit",
                     bgColor: Color(0xFFF0594F),

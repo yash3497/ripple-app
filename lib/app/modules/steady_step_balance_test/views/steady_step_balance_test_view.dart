@@ -67,7 +67,7 @@ class SteadyStepBalanceTestView
                 AppTextWidget(
                   text: "${controller.balanceTests[controller.test].title}",
                   fontSize: 50,
-                  textColor: AppColor.white,
+                  textColor: AppColor.textWhiteColor,
                 ),
                 addVerticalSpace(20),
                 !controller.isInstructionTab
@@ -95,7 +95,7 @@ class SteadyStepBalanceTestView
                       controller.isInstructionTab = true;
                       controller.update();
                     },
-                    buttonText: "Instruction",
+                    buttonText: "Instructions",
                     bgColor: AppColor.steadyTextColor,
                   ),
                 addVerticalSpace(10),

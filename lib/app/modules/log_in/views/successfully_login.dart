@@ -37,14 +37,18 @@ class SuccessFullyLoginScreen extends StatelessWidget {
                   "You have successfully logged in to the app. Click on the continue button to enjoy your benefits.",
               textColor: AppColor.textGreenColor,
               textAlign: TextAlign.center,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
             ),
           ),
           Spacer(),
           AppButton(
               onPressed: () {
-                Get.toNamed(Routes.HELLO_SCREEN);
+                if (Get.arguments['register']) {
+                  Get.toNamed(Routes.HELLO_SCREEN);
+                } else {
+                  Get.toNamed(Routes.STEADY_STEPS_ONBOARDING);
+                }
               },
               buttonText: "Continue"),
           addVerticalSpace(40)

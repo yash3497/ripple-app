@@ -15,21 +15,26 @@ class QuestionsScreen extends GetView<LogInController> {
     return Scaffold(
       appBar: AppBar(
         leadingWidth: Get.width * 0.3,
-        leading: Row(
-          children: [
-            addHorizontalySpace(15),
-            Icon(
-              Icons.arrow_back_ios_new_outlined,
-              size: 20,
-            ),
-            addHorizontalySpace(6),
-            AppTextWidget(
-              text: "Back",
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              textColor: AppColor.textGreenColor,
-            ),
-          ],
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Row(
+            children: [
+              addHorizontalySpace(15),
+              Icon(
+                Icons.arrow_back_ios_new_outlined,
+                size: 20,
+              ),
+              addHorizontalySpace(6),
+              AppTextWidget(
+                text: "Back",
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                textColor: AppColor.textGreenColor,
+              ),
+            ],
+          ),
         ),
       ),
       body: GetBuilder<LogInController>(builder: (ct) {
@@ -66,8 +71,10 @@ class QuestionsScreen extends GetView<LogInController> {
                             height: Get.width * 0.55,
                             width: Get.width,
                             decoration: BoxDecoration(
-                                color: AppColor.lightBgColor,
-                                borderRadius: BorderRadius.circular(10)),
+                                color: AppColor.reasonBgColor,
+                                borderRadius: BorderRadius.circular(10),
+                                border:
+                                    Border.all(color: AppColor.dividerColor)),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -77,7 +84,10 @@ class QuestionsScreen extends GetView<LogInController> {
                                   fontWeight: FontWeight.w600,
                                   textColor: Color(0xFF1B4852),
                                 ),
-                                addVerticalSpace(8),
+                                Divider(
+                                  thickness: 1,
+                                  color: AppColor.dividerColor,
+                                ),
                                 AppTextWidget(
                                   text:
                                       controller.questionsList[index].reason ??
@@ -94,31 +104,26 @@ class QuestionsScreen extends GetView<LogInController> {
                     }),
               ),
               addVerticalSpace(15),
-              Container(
-                padding: EdgeInsets.only(left: Get.width * 0.25),
-                height: 12,
+              SizedBox(
+                height: 8,
                 child: ListView.builder(
+                    shrinkWrap: true,
                     itemCount: controller.questionsList.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (ctx, i) {
-                      return Column(
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 4),
-                            height: 8,
-                            width: 8,
-                            decoration: BoxDecoration(
-                                color: controller.indicator == i
-                                    ? AppColor.mainColor
-                                    : AppColor.textGreenColor.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(20)),
-                          ),
-                        ],
+                      return Container(
+                        margin: EdgeInsets.only(right: 6),
+                        height: 8,
+                        width: 8,
+                        decoration: BoxDecoration(
+                            color: controller.indicator == i
+                                ? AppColor.mainColor
+                                : AppColor.textGreenColor.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(20)),
                       );
                     }),
               ),
-              addVerticalSpace(15),
+              addVerticalSpace(20),
               AppButton(
                   onPressed: () {
                     // if (controller.indicator <
@@ -140,7 +145,7 @@ class QuestionsScreen extends GetView<LogInController> {
                     }
                   },
                   buttonText: "Yes"),
-              addVerticalSpace(15),
+              addVerticalSpace(20),
               AppButton(
                   onPressed: () {
                     // if (controller.indicator <
@@ -179,21 +184,26 @@ class BodyPartScreen extends GetView<LogInController> {
     return Scaffold(
       appBar: AppBar(
         leadingWidth: Get.width * 0.3,
-        leading: Row(
-          children: [
-            addHorizontalySpace(15),
-            Icon(
-              Icons.arrow_back_ios_new_outlined,
-              size: 20,
-            ),
-            addHorizontalySpace(6),
-            AppTextWidget(
-              text: "Back",
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              textColor: AppColor.textGreenColor,
-            ),
-          ],
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Row(
+            children: [
+              addHorizontalySpace(15),
+              Icon(
+                Icons.arrow_back_ios_new_outlined,
+                size: 20,
+              ),
+              addHorizontalySpace(6),
+              AppTextWidget(
+                text: "Back",
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                textColor: AppColor.textGreenColor,
+              ),
+            ],
+          ),
         ),
       ),
       body: GetBuilder<LogInController>(builder: (ct) {
@@ -207,6 +217,7 @@ class BodyPartScreen extends GetView<LogInController> {
                     "Please tap on any body parts where you experienced pain.",
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
+                textColor: AppColor.textGreenColor,
               ),
               addVerticalSpace(30),
               Stack(

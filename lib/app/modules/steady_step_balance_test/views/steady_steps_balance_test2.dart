@@ -56,13 +56,13 @@ class SteadyStepBalanceTest2 extends StatelessWidget {
                               "${controller.balanceTests[controller.test].title}",
                           fontSize: 28,
                           textColor: AppColor.purpleColor,
+                          fontWeight: FontWeight.w500,
                         ),
                         addVerticalSpace(5),
                         AppTextWidget(
                           text:
                               "${controller.balanceTests[controller.test].shortDescription}",
                           fontSize: 16,
-                          fontWeight: FontWeight.w500,
                         ),
                         addVerticalSpace(20),
                         controller.testIsStart

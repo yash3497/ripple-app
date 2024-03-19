@@ -29,9 +29,12 @@ class OnBoardScreen extends StatelessWidget {
                 AppTextWidget(
                   text: "Say hello to health!",
                   fontSize: 28,
+                  textColor: AppColor.textGreenColor,
                 ),
                 addVerticalSpace(5),
                 AppTextWidget(
+                    fontSize: 14,
+                    textColor: AppColor.textGrayColor,
                     text:
                         "Seamlessly switch between managing physical health products and personalized workouts."),
               ],

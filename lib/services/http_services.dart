@@ -5,6 +5,11 @@ class HttpServices {
     return await http.get(Uri.parse(url));
   }
 
+  static Future<http.Response> getWithHeader(
+      String url, Map<String, String>? headers) async {
+    return await http.get(Uri.parse(url), headers: headers);
+  }
+
   static Future<http.Response> post(String url, dynamic body) async {
     return await http.post(Uri.parse(url), body: body, headers: {
       'Content-type': 'application/json',

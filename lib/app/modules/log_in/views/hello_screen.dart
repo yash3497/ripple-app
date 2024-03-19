@@ -23,11 +23,13 @@ class HelloScreen extends GetView<LogInController> {
             AppTextWidget(
               text: "Hello",
               fontSize: 28,
+              textColor: AppColor.textGreenColor,
+              fontWeight: FontWeight.w400,
             ),
             AppTextWidget(
               text: "${controller.users.name} 👋",
               fontSize: 28,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
               textColor: AppColor.textGreenColor,
             ),
             addVerticalSpace(20),

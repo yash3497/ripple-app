@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
 import 'package:ripple_healthcare/app/modules/log_in/controllers/log_in_controller.dart';
@@ -32,22 +33,35 @@ class RegisterView extends GetView<RegisterController> {
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            leading: Column(
-              children: [
-                CommonBackButton(
-                  onTap: () {
-                    if (controller.isAgeSelectView > 0) {
-                      controller.isAgeSelectView--;
-                      controller.update();
-                    }
-                    if (controller.isAgeSelectView == 0) {
-                      Get.back();
-                    }
+            leadingWidth: Get.width * 0.3,
+            leading: InkWell(
+              onTap: () {
+                if (controller.isAgeSelectView > 0) {
+                  controller.isAgeSelectView--;
+                  controller.update();
+                }
+                if (controller.isAgeSelectView == 0) {
+                  Get.back();
+                }
 
-                    controller.update();
-                  },
-                )
-              ],
+                controller.update();
+              },
+              child: Row(
+                children: [
+                  addHorizontalySpace(15),
+                  Icon(
+                    Icons.arrow_back_ios_new_outlined,
+                    size: 20,
+                  ),
+                  addHorizontalySpace(6),
+                  AppTextWidget(
+                    text: "Back",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    textColor: AppColor.textGreenColor,
+                  ),
+                ],
+              ),
             ),
           ),
           body: GetBuilder<RegisterController>(builder: (context) {
@@ -67,12 +81,13 @@ class RegisterView extends GetView<RegisterController> {
                               : "Enter Your Age",
                       fontSize: 28,
                       fontWeight: FontWeight.w500,
+                      textColor: AppColor.textGreenColor,
                     ),
                     AppTextWidget(
                       text: controller.isAgeSelectView == 0
                           ? "Please enter your name as per your Voter ID"
                           : "",
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
                       textColor: AppColor.textGrayColor,
                     ),
@@ -82,7 +97,19 @@ class RegisterView extends GetView<RegisterController> {
                             children: [
                               CustomTextField(
                                 controller: controller.fistNameController,
-                                hintText: 'Enter Name',
+                                fillColor: AppColor.white,
+                                enableBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                        color: AppColor.greyBorderColor)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                        color: AppColor.greyBorderColor)),
+                                onChanged: (v) {
+                                  controller.update();
+                                },
+                                hintText: '',
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Enter your name!";
@@ -118,7 +145,7 @@ class RegisterView extends GetView<RegisterController> {
                                               height: Get.height * 0.07,
                                               padding:
                                                   const EdgeInsets.symmetric(
-                                                      horizontal: 12),
+                                                      horizontal: 15),
                                               margin: const EdgeInsets.only(
                                                   right: 15, bottom: 10),
                                               decoration: BoxDecoration(
@@ -129,17 +156,18 @@ class RegisterView extends GetView<RegisterController> {
                                                               .selectedGender ==
                                                           i
                                                       ? AppColor.mainColor
-                                                      : AppColor.borderColor,
+                                                      : AppColor.white,
                                                   borderRadius:
-                                                      BorderRadius.circular(8)),
+                                                      BorderRadius.circular(
+                                                          10)),
                                               child: Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                      MainAxisAlignment.start,
                                                   children: [
                                                     AppTextWidget(
                                                       text: controller
                                                           .genderList[i],
-                                                      fontSize: 16,
+                                                      fontSize: 20,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                       textColor: controller
@@ -148,21 +176,6 @@ class RegisterView extends GetView<RegisterController> {
                                                           ? AppColor.white
                                                           : AppColor.black,
                                                     ),
-                                                    addHorizontalySpace(10),
-                                                    i == 0
-                                                        ? const Icon(
-                                                            Icons.male,
-                                                            color: AppColor
-                                                                .blueColor,
-                                                          )
-                                                        : i == 1
-                                                            ? const Icon(
-                                                                Icons.female,
-                                                                color: Color(
-                                                                    0xFFBD0CAB),
-                                                              )
-                                                            : const SizedBox
-                                                                .shrink()
                                                   ]),
                                             ),
                                           );
@@ -175,7 +188,19 @@ class RegisterView extends GetView<RegisterController> {
                                   CustomTextField(
                                     controller: controller.ageController,
                                     keyboardType: TextInputType.number,
-                                    hintText: 'Enter Your Age',
+                                    fillColor: AppColor.white,
+                                    enableBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                            color: AppColor.greyBorderColor)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                            color: AppColor.greyBorderColor)),
+                                    onChanged: (v) {
+                                      controller.update();
+                                    },
+                                    hintText: '',
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
                                         return "Please enter your age";
@@ -218,6 +243,17 @@ class RegisterView extends GetView<RegisterController> {
                     ),
                     addVerticalSpace(15),
                     AppButton(
+                        bgColor: controller.isAgeSelectView == 0
+                            ? controller.fistNameController.text.isNotEmpty
+                                ? AppColor.mainColor
+                                : AppColor.disableColor
+                            : controller.isAgeSelectView == 1
+                                ? controller.selectedGender != -1
+                                    ? AppColor.mainColor
+                                    : AppColor.disableColor
+                                : controller.ageController.text.isNotEmpty
+                                    ? AppColor.mainColor
+                                    : AppColor.disableColor,
                         onPressed: () {
                           // controller.isAgeSelectView++;
 
@@ -236,6 +272,12 @@ class RegisterView extends GetView<RegisterController> {
                               Get.toNamed(Routes.LOG_IN,
                                   arguments: {'register': true});
                             } else {
+                              if (controller.isAgeSelectView == 1 &&
+                                  controller.selectedGender == -1) {
+                                Fluttertoast.showToast(
+                                    msg: "Please select gender");
+                                return;
+                              }
                               controller.isAgeSelectView++;
                               print(controller.isAgeSelectView);
                               controller.update();

@@ -18,6 +18,10 @@ class CustomTextField extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final Function(String)? onChanged;
   final bool readOnly;
+  final InputBorder? focusedBorder;
+  final InputBorder? enableBorder;
+  final InputBorder? errorBorder;
+  final Function()? onEditingComplete;
 
   CustomTextField(
       {required this.hintText,
@@ -33,7 +37,11 @@ class CustomTextField extends StatefulWidget {
       this.readOnly = false,
       this.inputFormater,
       this.validator,
-      this.onChanged});
+      this.onChanged,
+      this.focusedBorder,
+      this.enableBorder,
+      this.errorBorder,
+      this.onEditingComplete});
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -54,6 +62,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       style: widget.style,
       validator: widget.validator,
       onChanged: widget.onChanged,
+      onEditingComplete: widget.onEditingComplete,
       decoration: InputDecoration(
         fillColor: widget.fillColor,
         filled: widget.isFill,
@@ -61,18 +70,22 @@ class _CustomTextFieldState extends State<CustomTextField> {
         suffixIcon: widget.suffixIcon,
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: AppColor.borderColor)),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: AppColor.greenBorder)),
-        errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: AppColor.errorColor)),
-        focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: AppColor.errorColor)),
+        enabledBorder: widget.enableBorder ??
+            OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColor.borderColor)),
+        focusedBorder: widget.focusedBorder ??
+            OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColor.greenBorder)),
+        errorBorder: widget.errorBorder ??
+            OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColor.errorColor)),
+        focusedErrorBorder: widget.errorBorder ??
+            OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: AppColor.errorColor)),
         hintText: widget.hintText,
       ),
     );

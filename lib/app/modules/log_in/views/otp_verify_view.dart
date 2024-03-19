@@ -19,10 +19,27 @@ class OtpVerifyView extends GetView<LogInController> {
     controller.updateTimer();
     return Scaffold(
         appBar: AppBar(
-          leading: const Column(
-            children: [
-              CommonBackButton(),
-            ],
+          leadingWidth: Get.width * 0.3,
+          leading: InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: Row(
+              children: [
+                addHorizontalySpace(15),
+                Icon(
+                  Icons.arrow_back_ios_new_outlined,
+                  size: 20,
+                ),
+                addHorizontalySpace(6),
+                AppTextWidget(
+                  text: "Back",
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  textColor: AppColor.textGreenColor,
+                ),
+              ],
+            ),
           ),
         ),
         body: Padding(
@@ -37,6 +54,7 @@ class OtpVerifyView extends GetView<LogInController> {
                   text: "Enter OTP code",
                   fontSize: 28,
                   fontWeight: FontWeight.w500,
+                  textColor: AppColor.textGreenColor,
                 ),
                 AppTextWidget(
                   text:
@@ -49,45 +67,20 @@ class OtpVerifyView extends GetView<LogInController> {
                 Pinput(
                   controller: controller.otpController,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  onChanged: (value) {
+                    controller.update();
+                  },
                   defaultPinTheme: PinTheme(
                     width: 56,
                     height: 56,
                     textStyle: const TextStyle(
                         fontSize: 20,
                         color: AppColor.black,
+                        fontFamily: "Urbanist",
                         fontWeight: FontWeight.w600),
                     decoration: BoxDecoration(
-                      border: Border.all(color: AppColor.borderColor),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  focusedPinTheme: PinTheme(
-                    width: 56,
-                    height: 56,
-                    textStyle: const TextStyle(
-                        fontSize: 20,
-                        color: AppColor.greenBorder,
-                        fontWeight: FontWeight.w600),
-                    decoration: BoxDecoration(
-                      color: AppColor.lightBgColor,
-                      border: Border.all(
-                        color: AppColor.mainColor,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  submittedPinTheme: PinTheme(
-                    width: 56,
-                    height: 56,
-                    textStyle: const TextStyle(
-                        fontSize: 20,
-                        color: AppColor.black,
-                        fontWeight: FontWeight.w600),
-                    decoration: BoxDecoration(
-                      color: AppColor.lightBgColor,
-                      border: Border.all(
-                        color: AppColor.mainColor,
-                      ),
+                      color: AppColor.otpBgColor,
+                      border: Border.all(color: AppColor.mainColor),
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
@@ -109,7 +102,8 @@ class OtpVerifyView extends GetView<LogInController> {
                         const TextSpan(
                           text: "Didn’t received code?",
                           style: TextStyle(
-                              fontSize: 15,
+                              fontFamily: "Urbanist",
+                              fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: AppColor.textGrayColor),
                         ),
@@ -122,7 +116,8 @@ class OtpVerifyView extends GetView<LogInController> {
                               child: const Text(
                                 " Resend",
                                 style: TextStyle(
-                                    fontSize: 15,
+                                    fontFamily: "Urbanist",
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: AppColor.mainColor),
                               ),
@@ -138,27 +133,31 @@ class OtpVerifyView extends GetView<LogInController> {
                     child: const Text(
                       " Change number?",
                       style: TextStyle(
-                          fontSize: 15,
+                          fontFamily: "Urbanist",
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: AppColor.mainColor),
                     ),
                   ),
                 ),
                 addVerticalSpace(15),
-                AppButton(
-                    onPressed: () {
-                      if (controller.otpKey.currentState!.validate()) {
-                        // controller.verifyOtp();
-                        if (Get.arguments['register']) {
-                          controller.users.phoneNo =
-                              int.parse(controller.phoneNumberController.text);
-                          Get.toNamed(Routes.HELLO_SCREEN);
-                        } else {
-                          controller.login();
+                GetBuilder<LogInController>(builder: (cont) {
+                  return AppButton(
+                      bgColor: controller.otpController.text.length > 3
+                          ? AppColor.mainColor
+                          : AppColor.disableColor,
+                      onPressed: () {
+                        if (controller.otpKey.currentState!.validate()) {
+                          // controller.verifyOtp();
+                          if (Get.arguments['register']) {
+                            controller.verifyOtp(true);
+                          } else {
+                            controller.verifyOtp(false);
+                          }
                         }
-                      }
-                    },
-                    buttonText: "Verify"),
+                      },
+                      buttonText: "Verify");
+                }),
                 addVerticalSpace(15),
                 // GetBuilder<LogInController>(builder: (controller) {
                 //   return Center(

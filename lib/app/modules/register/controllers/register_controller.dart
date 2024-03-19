@@ -14,7 +14,7 @@ class RegisterController extends GetxController {
 
   int isAgeSelectView = 0;
 
-  int selectedGender = 0;
+  int selectedGender = -1;
 
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> otpKey = GlobalKey<FormState>();

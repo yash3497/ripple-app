@@ -83,12 +83,15 @@ class CommanAppbar extends StatelessWidget implements PreferredSizeWidget {
         onPressed: () {
           logoutDialog(context, isSteadyStep ? "Steady Steps" : "Hip Pro+");
         },
-        icon: ImageIcon(AssetImage("assets/images/logoutIcon.png")),
+        icon: ImageIcon(
+          AssetImage("assets/images/logoutIcon.png"),
+          color: AppColor.purpleColor,
+        ),
       ),
       titleSpacing: 0,
       title: Text(
         isSteadyStep ? "Steady Steps" : 'Hip Pro*',
-        style: TextStyle(fontSize: 16),
+        style: TextStyle(fontSize: 16, color: AppColor.purpleColor),
       ),
       actions: [
         if (!notificationHide)

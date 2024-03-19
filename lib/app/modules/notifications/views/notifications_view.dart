@@ -38,41 +38,49 @@ class NotificationsView extends GetView<NotificationsController> {
                   ),
                 ),
                 addVerticalSpace(20),
-                Expanded(
-                  child: ListView.separated(
-                    itemCount: 20,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10.0),
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 4,
-                                  color: Colors.grey.shade400,
-                                  offset: const Offset(0, 2))
-                            ]),
-                        child: ListTile(
-                            title: AppTextWidget(
-                              text: "It’s time for your Sugar Medicine",
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            subtitle: const Text(
-                              "1 hour ago",
-                              style: TextStyle(fontSize: 10),
-                            ),
-                            trailing: Image.asset(
-                              "assets/images/medicineBottle.png",
-                              width: 50,
-                            )),
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return addVerticalSpace(15);
-                    },
-                  ),
-                )
+                // Expanded(
+                //   child: ListView.separated(
+                //     itemCount: 20,
+                //     itemBuilder: (context, index) {
+                //       return Container(
+                //         decoration: BoxDecoration(
+                //             color: Colors.white,
+                //             borderRadius: BorderRadius.circular(10.0),
+                //             boxShadow: [
+                //               BoxShadow(
+                //                   blurRadius: 4,
+                //                   color: Colors.grey.shade400,
+                //                   offset: const Offset(0, 2))
+                //             ]),
+                //         child: ListTile(
+                //             title: AppTextWidget(
+                //               text: "It’s time for your Sugar Medicine",
+                //               fontSize: 14,
+                //               fontWeight: FontWeight.w500,
+                //             ),
+                //             subtitle: const Text(
+                //               "1 hour ago",
+                //               style: TextStyle(fontSize: 10),
+                //             ),
+                //             trailing: Image.asset(
+                //               "assets/images/medicineBottle.png",
+                //               width: 50,
+                //             )),
+                //       );
+                //     },
+                //     separatorBuilder: (context, index) {
+                //       return addVerticalSpace(15);
+                //     },
+                //   ),
+                // )
+                Image.asset(
+                  "assets/images/notification.png",
+                  height: height(context) * .3,
+                ),
+                AppTextWidget(
+                  text: 'You have no notifications',
+                  fontSize: 20,
+                ),
               ],
             ),
           ),

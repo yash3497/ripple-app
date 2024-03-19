@@ -29,11 +29,10 @@ class SteadyStepsPageView extends GetView<SteadyStepsOnboardingController> {
                   itemCount: controller.onboardList.length,
                   // physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    return Stack(
                       children: [
                         Container(
-                          height: Get.height * 0.5,
+                          height: Get.height * 0.55,
                           padding: EdgeInsets.all(16),
                           width: double.infinity,
                           decoration: const BoxDecoration(
@@ -49,41 +48,46 @@ class SteadyStepsPageView extends GetView<SteadyStepsOnboardingController> {
                           child: Image.asset(
                               controller.onboardList[index].img ?? ""),
                         ),
-                        Container(
-                          // height: Get.height * 0.5,
-                          width: Get.width,
-                          padding: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(13),
-                            color: Colors.white,
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //       blurRadius: 2, color: Colors.grey.shade200)
-                            // ]),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AppTextWidget(
-                                text: controller.onboardList[index].subTitle ??
-                                    "",
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                textColor: AppColor.steadyColorBlue,
-                              ),
-                              AppTextWidget(
-                                text: controller.onboardList[index].title ?? "",
-                                fontSize: 32,
-                                fontWeight: FontWeight.w600,
-                                textColor: AppColor.steadyColorBlue,
-                              ),
-                              AppTextWidget(
-                                text: controller.onboardList[index].desc ?? "",
-                                fontSize: 20,
-                                fontWeight: FontWeight.w400,
-                                textColor: AppColor.black,
-                              ),
-                            ],
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: Get.height * 0.4,
+                            width: Get.width,
+                            padding: const EdgeInsets.all(16),
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
+                              color: Colors.white,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AppTextWidget(
+                                  text:
+                                      (controller.onboardList[index].subTitle ??
+                                              "")
+                                          .toUpperCase(),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  textColor: AppColor.steadyColorBlue,
+                                ),
+                                AppTextWidget(
+                                  text:
+                                      controller.onboardList[index].title ?? "",
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w600,
+                                  textColor: AppColor.steadyColorBlue,
+                                ),
+                                AppTextWidget(
+                                  text:
+                                      controller.onboardList[index].desc ?? "",
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400,
+                                  textColor: AppColor.textGrayColor,
+                                ),
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -95,7 +99,9 @@ class SteadyStepsPageView extends GetView<SteadyStepsOnboardingController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(),
+                  SizedBox(
+                    width: 45,
+                  ),
                   Container(
                     height: 12,
                     child: ListView.builder(

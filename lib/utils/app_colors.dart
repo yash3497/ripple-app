@@ -23,6 +23,12 @@ class AppColor {
   static const Color steadyColorBlue = Color(0xFF6F77BD);
   static const Color steadyTextColor = Color(0xFF5961A3);
   static const Color purpleColor = Color(0xFF424770);
+  static const Color greyBorderColor = Color(0xFFCDCDCD);
+  static const Color greenBorderColor = Color(0xFF13B3C2);
+  static const Color otpBgColor = Color(0xFFE5FDFF);
+  static const Color dividerColor = Color(0xFFD3F7FF);
+  static const Color reasonBgColor = Color(0xFFE5FDFf);
+  static const Color textWhiteColor = Color(0xFFEAF6FF);
 
   static const Color lightWhite = Color(0xFFFFFFFF);
   static const Color lightgreen = Color(0xFFEFFFF3);
