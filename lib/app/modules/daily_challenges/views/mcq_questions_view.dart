@@ -75,10 +75,10 @@ class DailyChallengMcqQuestionsView extends StatelessWidget {
                       width: Get.width,
                       decoration: BoxDecoration(
                           color: controller.selectedMcqAnswer == index
-                              ? AppColor.steadyTextColor
+                              ? AppColor.steadyButtonColor
                               : Colors.white,
-                          border: Border.all(
-                              width: 1, color: AppColor.steadyTextColor),
+                          border:
+                              Border.all(width: 1, color: Color(0xFF8A94EB)),
                           borderRadius: BorderRadius.circular(8)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -43,12 +43,12 @@ class DailyChallengesView extends GetView<DailyChallengesController> {
                       child: Image.asset(
                         "assets/images/dailyChallengesBanner.png",
                         width: Get.width,
-                        height: Get.height * 0.25,
+                        height: Get.height * 0.23,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  addVerticalSpace(20),
+                  addVerticalSpace(30),
                   Row(
                     children: [
                       Column(
@@ -70,7 +70,7 @@ class DailyChallengesView extends GetView<DailyChallengesController> {
                       ),
                       const Spacer(),
                       Container(
-                        height: 40,
+                        height: 30,
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),

@@ -22,6 +22,8 @@ class AppColor {
   static const Color buttonBorderColor = Color(0xFFA6F2DA);
   static const Color steadyColorBlue = Color(0xFF6F77BD);
   static const Color steadyTextColor = Color(0xFF5961A3);
+  static const Color steadyButtonColor = Color(0xFF6F78BD);
+  static const Color steadyBorderColor = Color(0xFFCCCFE0);
   static const Color purpleColor = Color(0xFF424770);
   static const Color greyBorderColor = Color(0xFFCDCDCD);
   static const Color greenBorderColor = Color(0xFF13B3C2);

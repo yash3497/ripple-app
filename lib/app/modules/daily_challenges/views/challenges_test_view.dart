@@ -93,7 +93,7 @@ class DailyChallengesTestView extends GetView<DailyChallengesController> {
               controller.startTimer();
             },
             buttonText: "Start",
-            bgColor: AppColor.steadyTextColor,
+            bgColor: AppColor.steadyButtonColor,
           ),
           addVerticalSpace(15)
         ],
@@ -125,8 +125,8 @@ class GetReadyDailyChallenges extends GetView<DailyChallengesController> {
               ),
               AppTextWidget(
                 text: controller.testStartTimer.toString(),
-                fontSize: 100,
-                fontWeight: FontWeight.w700,
+                fontSize: 128,
+                fontWeight: FontWeight.w500,
                 textColor: AppColor.steadyTextColor,
               )
             ],

@@ -43,14 +43,14 @@ class HomeView extends GetView<HomeController> {
                     children: [
                       AppTextWidget(
                         text: "Welcome",
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600,
                         textColor: AppColor.mainColor,
                       ),
                       AppTextWidget(
                         text: "Arjit Sharma",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
                         textColor: AppColor.mainColor,
                       ),
                     ],

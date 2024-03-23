@@ -17,69 +17,95 @@ class BalanceTestingView extends GetView<BalanceTestingController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BalanceTestingController>(builder: (ct) {
-      return Scaffold(
-          appBar: CommanAppbar(
-            isSteadyStep: true,
-          ),
-          body: CustomGradientBackground(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomBackButton(),
-                addVerticalSpace(6),
-                AppTextWidget(
-                  text:
-                      controller.isInstruction ? "Instruction" : "Exercise 1:",
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                  textColor: AppColor.steadyTextColor,
-                ),
-                controller.isInstruction
-                    ? AppTextWidget(
-                        text:
-                            "1. Begin by standing with one foot directly in front of the other while holding onto the chair/wall to get into a good steady neutral position.\n2. Walk forward heel to toe by placing one foot directly in front of the other foot for 10-12 feet.\n3.  Stand tall, head up, eyes open looking forward and walk at a safe speed.\n4. At the end of your walkway slowly turn around and continue for given time.",
-                        fontSize: 20,
-                      )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppTextWidget(
-                            text: "Heel to toe Walk",
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600,
-                            textColor: AppColor.black,
-                          ),
-                          addVerticalSpace(40),
-                          Image.asset("assets/images/toeWalk.png"),
-                        ],
-                      ),
-                addVerticalSpace(20),
-                Spacer(),
-                if (!controller.isInstruction)
+      return WillPopScope(
+        onWillPop: () async {
+          if (controller.isInstruction == true) {
+            controller.isInstruction = false;
+            controller.update();
+          } else {
+            Get.back();
+          }
+          return false;
+        },
+        child: Scaffold(
+            appBar: CommanAppbar(
+              isSteadyStep: true,
+            ),
+            body: CustomGradientBackground(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomBackButton(
+                    onTap: () {
+                      if (controller.isInstruction == true) {
+                        controller.isInstruction = false;
+                        controller.update();
+                      } else {
+                        Get.back();
+                      }
+                    },
+                  ),
+                  addVerticalSpace(6),
+                  AppTextWidget(
+                    text: controller.isInstruction
+                        ? "Instruction"
+                        : "Exercise 1:",
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700,
+                    textColor: AppColor.steadyTextColor,
+                  ),
+                  controller.isInstruction
+                      ? AppTextWidget(
+                          text:
+                              "1. Begin by standing with one foot directly in front of the other while holding onto the chair/wall to get into a good steady neutral position.\n2. Walk forward heel to toe by placing one foot directly in front of the other foot for 10-12 feet.\n3.  Stand tall, head up, eyes open looking forward and walk at a safe speed.\n4. At the end of your walkway slowly turn around and continue for given time.",
+                          fontSize: 20,
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppTextWidget(
+                              text: "Heel to toe Walk",
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                              textColor: AppColor.black,
+                            ),
+                            addVerticalSpace(40),
+                            Image.asset("assets/images/toeWalk.png"),
+                          ],
+                        ),
+                  addVerticalSpace(20),
+                  if (!controller.isInstruction)
+                    AppButton(
+                      onPressed: () {
+                        controller.isInstruction = true;
+                        controller.update();
+                      },
+                      buttonText: "Instruction",
+                      bgColor: AppColor.steadyButtonColor,
+                    ),
+                  addVerticalSpace(15),
                   AppButton(
                     onPressed: () {
-                      controller.isInstruction = true;
-                      controller.update();
+                      controller.startTimer();
+                      Get.to(() => GetReadyForTestScreen(),
+                          binding: BalanceTestingBinding());
                     },
-                    buttonText: "Instruction",
-                    bgColor: AppColor.steadyTextColor,
+                    buttonText: "Start Training",
+                    bgColor: controller.isInstruction == true
+                        ? AppColor.steadyButtonColor
+                        : AppColor.white,
+                    borderColor: controller.isInstruction == true
+                        ? Colors.transparent
+                        : AppColor.borderColor,
+                    txtcolor: controller.isInstruction == true
+                        ? Colors.white
+                        : AppColor.steadyTextColor,
                   ),
-                addVerticalSpace(15),
-                AppButton(
-                  onPressed: () {
-                    controller.startTimer();
-                    Get.to(() => GetReadyForTestScreen(),
-                        binding: BalanceTestingBinding());
-                  },
-                  buttonText: "Start Training",
-                  bgColor: AppColor.white,
-                  borderColor: AppColor.steadyTextColor,
-                  txtcolor: AppColor.steadyTextColor,
-                ),
-                addVerticalSpace(20),
-              ],
-            ),
-          ));
+                  addVerticalSpace(20),
+                ],
+              ),
+            )),
+      );
     });
   }
 }
@@ -107,7 +133,7 @@ class GetReadyForTestScreen extends GetView<BalanceTestingController> {
               ),
               AppTextWidget(
                 text: controller.testStartTimer.toString(),
-                fontSize: 100,
+                fontSize: 128,
                 fontWeight: FontWeight.w700,
                 textColor: AppColor.steadyTextColor,
               )

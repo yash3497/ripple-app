@@ -26,7 +26,7 @@ class ReffaralScreen extends StatelessWidget {
           AppTextWidget(
             text: "Invite friends to Steady Steps",
             fontSize: 28,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             textColor: AppColor.steadyTextColor,
           ),
           AppTextWidget(

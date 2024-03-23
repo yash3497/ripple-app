@@ -31,7 +31,7 @@ class _SteadyStepsDashboardViewState extends State<SteadyStepsDashboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const CommanAppbar(
+        appBar: CommanAppbar(
           isSteadyStep: true,
         ),
         body: GetBuilder<SteadyStepsDashboardController>(builder: (controller) {

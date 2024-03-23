@@ -49,8 +49,8 @@ class BluetoothConnectProccessView
                       ? "Connected"
                       : "Connect Your Hip Pro+",
                   fontSize: 28,
-                  fontWeight: FontWeight.w600,
-                  textColor: AppColor.textGreenColor,
+                  fontWeight: FontWeight.w700,
+                  textColor: Color(0xFF18634C),
                 ),
                 addVerticalSpace(30),
                 Row(

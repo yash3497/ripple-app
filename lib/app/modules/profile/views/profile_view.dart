@@ -136,21 +136,21 @@ class ProfileView extends GetView<ProfileController> {
 }
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({
-    super.key,
-  });
+  const CustomBackButton({super.key, this.onTap});
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Get.back();
-      },
+      onTap: onTap ??
+          () {
+            Get.back();
+          },
       child: Row(
         children: [
           const Icon(
             Icons.arrow_back_ios_new_outlined,
-            size: 15,
+            size: 18,
           ),
           addHorizontalySpace(5),
           AppTextWidget(

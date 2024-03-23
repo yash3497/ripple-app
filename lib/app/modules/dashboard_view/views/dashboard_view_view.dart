@@ -73,7 +73,7 @@ class DashboardViewView extends GetView<DashboardViewController> {
                 AppTextWidget(
                   text: "Today’s Summary",
                   fontSize: 28,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                 ),
                 addVerticalSpace(15),
                 const TotalWearTimeWidget(),
@@ -245,7 +245,7 @@ class UserLastSyncBoxWidget extends StatelessWidget {
               title: AppTextWidget(
                 text: "Anjali Sharma",
                 fontSize: 20,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
                 textColor: Colors.white,
               ),
               subtitle: InkWell(
@@ -254,7 +254,7 @@ class UserLastSyncBoxWidget extends StatelessWidget {
                 },
                 child: AppTextWidget(
                   text: "Take Balance Test",
-                  fontSize: 15,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                   textColor: Colors.white,
                 ),
@@ -327,28 +327,28 @@ class TotalWearTimeWidget extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                      color: Color(0xFF0E3B0E),
                       fontFamily: "Urbanist")),
               TextSpan(
                   text: " hours  ",
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black,
+                      color: Color(0xFF0E3B0E),
                       fontFamily: "Urbanist")),
               TextSpan(
                   text: "32",
                   style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                      color: Color(0xFF0E3B0E),
                       fontFamily: "Urbanist")),
               TextSpan(
                   text: " minutes",
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black,
+                      color: Color(0xFF0E3B0E),
                       fontFamily: "Urbanist"))
             ])),
             const SizedBox(
@@ -538,7 +538,7 @@ class TextWithBulletWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(Icons.rectangle, size: 12, color: bulletColor),
+        Icon(Icons.rectangle_rounded, size: 12, color: bulletColor),
         const SizedBox(
           width: 5,
         ),

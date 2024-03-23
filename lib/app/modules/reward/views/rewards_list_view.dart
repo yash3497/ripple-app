@@ -29,6 +29,7 @@ class RewardsListView extends GetView<RewardController> {
                   text: "Win exciting rewards ",
                   textColor: AppColor.steadyTextColor,
                   fontSize: 28,
+                  fontWeight: FontWeight.w500,
                 ),
                 addVerticalSpace(15),
                 ListView.builder(
@@ -49,8 +50,8 @@ class RewardsListView extends GetView<RewardController> {
                                 borderRadius: BorderRadius.circular(10),
                                 gradient: const LinearGradient(
                                     colors: [
-                                      Color(0xFF5A62A7),
-                                      Color(0xFFDCE0FA)
+                                      Color(0xFF7C85C9),
+                                      Color(0xFFE0E3F8)
                                     ],
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight),

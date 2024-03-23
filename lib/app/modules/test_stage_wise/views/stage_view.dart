@@ -33,14 +33,14 @@ class StageView extends GetView<TestStageWiseController> {
                           AppTextWidget(
                             text:
                                 "Stage ${controller.stageCounter} will start in",
-                            fontSize: 28,
-                            // fontWeight: FontWeight.w600,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
                             textColor: AppColor.greenColor,
                           ),
                           AppTextWidget(
                             text: controller.testStartTimer.toString(),
-                            fontSize: 40,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 128,
+                            fontWeight: FontWeight.w500,
                             textColor: AppColor.greenColor,
                           ),
                         ],
@@ -76,7 +76,7 @@ class StageView extends GetView<TestStageWiseController> {
                                   fontSize: 40,
                                   fontWeight: FontWeight.w600,
                                   textColor: controller.testPlayTimer < 6
-                                      ? Colors.red
+                                      ? AppColor.errorColor
                                       : AppColor.greenColor,
                                 ),
                               )

@@ -40,7 +40,7 @@ class RewardView extends GetView<RewardController> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             gradient: const LinearGradient(
-                                colors: [Color(0xFF5A62A7), Color(0xFFDCE0FA)],
+                                colors: [Color(0xFF7C85C9), Color(0xFFE0E3F8)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight),
                           ),
@@ -85,7 +85,7 @@ class RewardView extends GetView<RewardController> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             gradient: const LinearGradient(
-                                colors: [Color(0xFF5A62A7), Color(0xFFDCE0FA)],
+                                colors: [Color(0xFF7C85C9), Color(0xFFE0E3F8)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight),
                           ),
