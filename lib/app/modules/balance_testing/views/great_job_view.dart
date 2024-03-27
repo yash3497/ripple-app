@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:ripple_healthcare/app/modules/balance_testing/views/congratulation_screen.dart';
 import 'package:ripple_healthcare/app/routes/app_pages.dart';
 import 'package:ripple_healthcare/app/widget/app_button.dart';
 import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
@@ -142,8 +143,11 @@ class _GreatJobViewState extends State<GreatJobView> {
                         curve: Curves.easeInOut,
                       );
                     } else if (_currentPage == 1) {
-                      Get.until((route) =>
-                          route.settings.name == Routes.STEADY_STEPS_DASHBOARD);
+                      // Get.until((route) =>
+                      //     route.settings.name == Routes.STEADY_STEPS_DASHBOARD);
+                      Get.to(
+                        () => CongratulationScreen(),
+                      );
                     }
                   },
                   buttonText: _currentPage < 1 ? "Next" : "Ok",

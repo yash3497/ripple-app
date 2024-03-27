@@ -73,7 +73,7 @@ class SteadyStepBalanceTest2 extends StatelessWidget {
                                   fontSize: 40,
                                   fontWeight: FontWeight.w600,
                                   textColor: controller.testPlayTimer < 6
-                                      ? Colors.red
+                                      ? AppColor.errorColor
                                       : AppColor.steadyTextColor,
                                 ),
                               )

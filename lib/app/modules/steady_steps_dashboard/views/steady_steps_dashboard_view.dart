@@ -66,24 +66,25 @@ class _SteadyStepsDashboardViewState extends State<SteadyStepsDashboardView> {
                                   ['subTitle'],
                               title: controller.SteadyStepCat[index]['title'],
                               onTap: () {
-                                // if (index == 0) {
-                                //   Get.toNamed(Routes.BALANCE_TESTING);
-                                // } else if (index == 1) {
-                                //   Get.toNamed(Routes.STEADY_STEP_PROGRESS);
-                                // } else if (index == 2) {
-                                //   Get.toNamed(Routes.DAILY_CHALLENGES);
-                                // } else if (index == 3) {
-                                //   Get.toNamed(Routes.STEADY_STEP_BALANCE_TEST);
-                                // } else if (index == 4) {
-                                //   Get.toNamed(Routes.REWARD);
-                                // }
-                                if (Get.find<SteadyStepBalanceTestController>()
-                                    .balanceTests
-                                    .isNotEmpty) {
+                                if (index == 0) {
+                                  Get.toNamed(Routes.BALANCE_TESTING);
+                                } else if (index == 1) {
+                                  if (Get.find<
+                                          SteadyStepBalanceTestController>()
+                                      .balanceTests
+                                      .isNotEmpty) {
+                                    Get.toNamed(
+                                        Routes.STEADY_STEP_BALANCE_TEST);
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: "Wait test is loading...");
+                                  }
+                                } else if (index == 2) {
+                                  Get.toNamed(Routes.DAILY_CHALLENGES);
+                                } else if (index == 3) {
                                   Get.toNamed(Routes.STEADY_STEP_BALANCE_TEST);
-                                } else {
-                                  Fluttertoast.showToast(
-                                      msg: "Wait test is loading...");
+                                } else if (index == 4) {
+                                  Get.toNamed(Routes.REWARD);
                                 }
                               },
                             );

@@ -15,7 +15,12 @@ class TodaysFeedback extends GetView<BalanceTestingController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Today’s Feedback"),
+        leading: SizedBox(),
+        title: AppTextWidget(
+          text: "Today’s Feedback",
+          fontWeight: FontWeight.w400,
+          fontSize: 16,
+        ),
         centerTitle: true,
       ),
       body: CustomGradientBackground(
@@ -64,7 +69,7 @@ class TodaysFeedback extends GetView<BalanceTestingController> {
                                           width: 8,
                                           decoration: BoxDecoration(
                                               color: controller.indicator == i
-                                                  ? AppColor.mainColor
+                                                  ? AppColor.steadyButtonColor
                                                   : AppColor.textGreenColor
                                                       .withOpacity(0.2),
                                               borderRadius:
@@ -83,7 +88,7 @@ class TodaysFeedback extends GetView<BalanceTestingController> {
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 8.0),
                                     child: AppButton(
-                                        bgColor: AppColor.steadyTextColor,
+                                        bgColor: AppColor.steadyButtonColor,
                                         onPressed: () {
                                           _pageController.animateToPage(
                                               controller.indicator + 1,

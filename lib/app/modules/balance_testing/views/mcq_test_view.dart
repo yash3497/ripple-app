@@ -16,6 +16,7 @@ class MCQTestView extends StatelessWidget {
     return GetBuilder<BalanceTestingController>(builder: (controller) {
       return Scaffold(
         appBar: AppBar(
+          leadingWidth: 80,
           leading: CustomBackButton(),
           centerTitle: true,
           title: AppTextWidget(text: "Exercise 1"),

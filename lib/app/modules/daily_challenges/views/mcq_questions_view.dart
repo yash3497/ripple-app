@@ -21,6 +21,7 @@ class DailyChallengMcqQuestionsView extends StatelessWidget {
     return GetBuilder<DailyChallengesController>(builder: (controller) {
       return Scaffold(
         appBar: AppBar(
+          leadingWidth: 80,
           leading: CustomBackButton(),
           centerTitle: true,
           title: AppTextWidget(text: "Exercise 1"),

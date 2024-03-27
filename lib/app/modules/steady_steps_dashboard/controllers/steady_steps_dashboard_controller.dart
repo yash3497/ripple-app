@@ -13,12 +13,12 @@ class SteadyStepsDashboardController extends GetxController {
       Users(phoneNo: 0, name: "", gender: "", age: 0, questions: [], pain: []);
 
   List SteadyStepCat = [
-    // {
-    //   "title": "Balance Training",
-    //   "subTitle":
-    //       "Empower elders with personalized balance training on our app.",
-    //   "img": "balanceTraining.png"
-    // },
+    {
+      "title": "Balance Training",
+      "subTitle":
+          "Empower elders with personalized balance training on our app.",
+      "img": "balanceTraining.png"
+    },
     // {
     //   "title": "Progress",
     //   "subTitle":
