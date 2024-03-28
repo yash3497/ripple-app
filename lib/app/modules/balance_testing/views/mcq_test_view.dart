@@ -4,6 +4,7 @@ import 'package:ripple_healthcare/app/modules/balance_testing/controllers/balanc
 import 'package:ripple_healthcare/app/modules/profile/views/profile_view.dart';
 import 'package:ripple_healthcare/app/modules/steady_steps_onboarding/views/steady_steps_onboard_flow.dart';
 import 'package:ripple_healthcare/app/widget/app_text_widget.dart';
+import 'package:ripple_healthcare/services/app_services.dart';
 import 'package:ripple_healthcare/utils/app_colors.dart';
 
 import '../../../../utils/constant_variable.dart';
@@ -33,7 +34,8 @@ class MCQTestView extends StatelessWidget {
                 ),
                 Spacer(),
                 AppTextWidget(
-                  text: "0:${controller.testPlayTimer}",
+                  text:
+                      "${AppServices.formatSecondsToTimeString(controller.testPlayTimer)}",
                   fontSize: 48,
                   fontWeight: FontWeight.w700,
                   textColor: controller.testPlayTimer <= 5

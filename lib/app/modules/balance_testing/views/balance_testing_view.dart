@@ -48,7 +48,7 @@ class BalanceTestingView extends GetView<BalanceTestingController> {
                   addVerticalSpace(6),
                   AppTextWidget(
                     text: controller.isInstruction
-                        ? "Instruction"
+                        ? "Instructions"
                         : "Exercise 1:",
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
@@ -73,14 +73,14 @@ class BalanceTestingView extends GetView<BalanceTestingController> {
                             Image.asset("assets/images/toeWalk.png"),
                           ],
                         ),
-                  addVerticalSpace(20),
+                  Spacer(),
                   if (!controller.isInstruction)
                     AppButton(
                       onPressed: () {
                         controller.isInstruction = true;
                         controller.update();
                       },
-                      buttonText: "Instruction",
+                      buttonText: "Instructions",
                       bgColor: AppColor.steadyButtonColor,
                     ),
                   addVerticalSpace(15),

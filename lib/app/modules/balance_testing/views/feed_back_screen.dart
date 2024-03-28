@@ -50,7 +50,7 @@ class TodaysFeedback extends GetView<BalanceTestingController> {
                                   "",
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
-                              textColor: AppColor.textGreenColor,
+                              textColor: AppColor.purpleColor,
                             ),
                             Spacer(),
                             Container(
