@@ -18,35 +18,42 @@ class CongratulationScreen extends StatelessWidget {
         isSteadyStep: true,
       ),
       body: CustomGradientBackground(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Stack(
         children: [
-          SizedBox(),
           Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppTextWidget(
-                text: "Congratulations!",
-                fontSize: 32,
-                fontWeight: FontWeight.w700,
-                textColor: AppColor.steadyTextColor,
+              SizedBox(),
+              Column(
+                children: [
+                  AppTextWidget(
+                    text: "Congratulations!",
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700,
+                    textColor: AppColor.steadyTextColor,
+                  ),
+                  addVerticalSpace(10),
+                  AppTextWidget(
+                    text:
+                        "You have completed all of your exercise for today.\n\nMake sure to come back tomorrow.Consistency is key!",
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-              addVerticalSpace(10),
-              AppTextWidget(
-                text:
-                    "You have completed all of your exercise for today.\n\nMake sure to come back tomorrow.Consistency is key!",
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                textAlign: TextAlign.center,
-              ),
+              AppButton(
+                onPressed: () {
+                  Get.to(() => TodaysFeedback());
+                },
+                buttonText: "Ok",
+                bgColor: AppColor.steadyTextColor,
+              )
             ],
           ),
-          AppButton(
-            onPressed: () {
-              Get.to(() => TodaysFeedback());
-            },
-            buttonText: "Ok",
-            bgColor: AppColor.steadyTextColor,
-          )
+          Align(
+              alignment: Alignment.center,
+              child: Image.asset("assets/images/congratulation.gif")),
         ],
       )),
     );

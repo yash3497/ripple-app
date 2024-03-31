@@ -27,11 +27,12 @@ class WellDoneScreen extends GetView<BalanceTestingController> {
         appBar: const CommanAppbar(isSteadyStep: true),
         body: CustomGradientBackground(
             child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             addVerticalSpace(10),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 AppTextWidget(
                   text: "Well Done!",
