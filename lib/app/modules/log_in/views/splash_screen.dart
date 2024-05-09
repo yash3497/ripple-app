@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 4), () async {
+    Future.delayed(const Duration(seconds: 3), () async {
       if (await StorageService().read(DbKeys.token) != null) {
         Get.offAndToNamed(Routes.STEADY_STEPS_DASHBOARD);
       } else {

@@ -175,6 +175,7 @@ class CustomGradientBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: Get.width,
+      height: Get.height,
       padding: EdgeInsets.all(padding),
       decoration: const BoxDecoration(
         gradient: LinearGradient(

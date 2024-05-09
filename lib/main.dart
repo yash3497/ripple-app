@@ -19,11 +19,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: "Ripple Healthcare",
+      title: "STEADY STEPS",
       initialBinding: LogInBinding(),
       initialRoute: AppPages.INITIAL,
       // initialRoute: Routes.HOME,
       getPages: AppPages.routes,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

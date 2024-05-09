@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class AppServices {
   static String formatSecondsToTimeString(int seconds) {
     int minutes = (seconds ~/ 60);
@@ -8,5 +10,10 @@ class AppServices {
         (remainingSeconds < 10) ? '0$remainingSeconds' : '$remainingSeconds';
 
     return '$minutesStr:$secondsStr';
+  }
+
+  int getRandomIndex(int listLength) {
+    Random random = Random();
+    return random.nextInt(listLength);
   }
 }

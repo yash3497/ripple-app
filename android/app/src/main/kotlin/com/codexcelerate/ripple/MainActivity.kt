@@ -1,4 +1,4 @@
-package com.example.ripple_healthcare
+package com.codexcelerate.ripple
 
 import io.flutter.embedding.android.FlutterActivity
 

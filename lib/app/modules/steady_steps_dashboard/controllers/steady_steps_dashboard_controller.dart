@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:ripple_healthcare/app/modules/balance_testing/controllers/balance_testing_controller.dart';
 import 'package:ripple_healthcare/model/users.dart';
 import 'package:ripple_healthcare/services/http_services.dart';
 import 'package:ripple_healthcare/services/storage_service.dart';
@@ -54,8 +55,8 @@ class SteadyStepsDashboardController extends GetxController {
         var data = jsonDecode(response.body);
         print(data);
         users = Users.fromJson(data['user']);
-
         update();
+        Get.put(BalanceTestingController()).fetchTraining();
       } else {
         print("Fetch Users Error: ${response.statusCode}");
       }

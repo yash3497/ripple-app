@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
+import 'package:ripple_healthcare/app/modules/balance_testing/controllers/balance_testing_controller.dart';
 import 'package:ripple_healthcare/app/modules/home/views/bottom_navigation_bar.dart';
 import 'package:ripple_healthcare/app/modules/steady_step_balance_test/controllers/steady_step_balance_test_controller.dart';
 import 'package:ripple_healthcare/app/modules/steady_steps_dashboard/controllers/steady_steps_dashboard_controller.dart';
@@ -26,6 +27,7 @@ class _SteadyStepsDashboardViewState extends State<SteadyStepsDashboardView> {
     super.initState();
     Get.put(SteadyStepsDashboardController()).fetchUserData();
     Get.put(SteadyStepBalanceTestController()).fetchBalanceTest();
+    Get.put(BalanceTestingController()).fetchQuestions();
   }
 
   @override
@@ -67,7 +69,14 @@ class _SteadyStepsDashboardViewState extends State<SteadyStepsDashboardView> {
                               title: controller.SteadyStepCat[index]['title'],
                               onTap: () {
                                 if (index == 0) {
-                                  Get.toNamed(Routes.BALANCE_TESTING);
+                                  if (Get.find<BalanceTestingController>()
+                                      .trainingList
+                                      .isNotEmpty) {
+                                    Get.toNamed(Routes.BALANCE_TESTING);
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: "Wait exercise is loading...");
+                                  }
                                 } else if (index == 1) {
                                   if (Get.find<
                                           SteadyStepBalanceTestController>()

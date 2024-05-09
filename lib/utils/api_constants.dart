@@ -6,4 +6,6 @@ class ApiConstants {
   static String verifyOtp = '$otpUrl/verify';
   static String user = '$baseUrl/user';
   static String balanceTest = '$baseUrl/balanceTests';
+  static String exercises = '$baseUrl/exercises/based-on-questions';
+  static String questions = '$baseUrl/questions';
 }

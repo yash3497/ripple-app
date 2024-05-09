@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ripple_healthcare/app/modules/balance_testing/bindings/balance_testing_binding.dart';
 import 'package:ripple_healthcare/app/modules/balance_testing/controllers/balance_testing_controller.dart';
+import 'package:ripple_healthcare/app/modules/balance_testing/views/balance_testing_view.dart';
 import 'package:ripple_healthcare/app/modules/balance_testing/views/congratulation_screen.dart';
 import 'package:ripple_healthcare/app/modules/balance_testing/views/great_job_view.dart';
 import 'package:ripple_healthcare/app/modules/home/views/bottom_navigation_bar.dart';
@@ -25,67 +26,121 @@ class WellDoneScreen extends GetView<BalanceTestingController> {
       },
       child: Scaffold(
         appBar: const CommanAppbar(isSteadyStep: true),
-        body: CustomGradientBackground(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            addVerticalSpace(10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AppTextWidget(
-                  text: "Well Done!",
-                  fontSize: 32,
-                  fontWeight: FontWeight.w700,
-                  textColor: Color(0xFF424770),
-                ),
-                AppTextWidget(
-                  text: "You have completed 1 of 10 exercise",
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                  textColor: Color(0xFF7E8199),
-                ),
-                AppTextWidget(
-                  text: "Your Score is 10",
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  textColor: Color(0xFF424770),
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppTextWidget(
-                  text: "Would You like to :",
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                ),
-                addVerticalSpace(9),
-                AppButton(
-                  onPressed: () {
-                    Get.to(
-                      () => GreatJobView(),
-                    );
-                  },
-                  buttonText: "Next Exercise",
-                  bgColor: AppColor.steadyButtonColor,
-                ),
-                addVerticalSpace(15),
-                AppButton(
-                  onPressed: () {
-                    Get.until((route) =>
-                        route.settings.name == Routes.STEADY_STEPS_DASHBOARD);
-                  },
-                  buttonText: "Stop",
-                  bgColor: AppColor.errorColor,
-                ),
-                addVerticalSpace(8),
-              ],
-            )
-          ],
-        )),
+        body: GetBuilder<BalanceTestingController>(builder: (controller) {
+          return CustomGradientBackground(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              addVerticalSpace(10),
+              !controller.isStop
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AppTextWidget(
+                          text: "Well Done!",
+                          fontSize: 32,
+                          fontWeight: FontWeight.w700,
+                          textColor: Color(0xFF424770),
+                        ),
+                        AppTextWidget(
+                          text:
+                              "You have completed ${controller.exercisePointer + 1} of 5 exercise",
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          textColor: Color(0xFF7E8199),
+                        ),
+                        AppTextWidget(
+                          text:
+                              "Your Score is ${controller.questionPoints[controller.exercisePointer]}",
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          textColor: Color(0xFF424770),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        Image.asset(
+                          "assets/images/stop_exercise.png",
+                          width: width(context) * .5,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: AppTextWidget(
+                            text: "You stopped the exercise",
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            textAlign: TextAlign.center,
+                            textColor: AppColor.primaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  controller.exercisePointer < 4
+                      ? AppTextWidget(
+                          text: "Would You like to :",
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        )
+                      : SizedBox(
+                          height: 0,
+                        ),
+                  addVerticalSpace(9),
+                  controller.exercisePointer < 4
+                      ? AppButton(
+                          onPressed: () {
+                            controller.isStop = false;
+                            if (controller.exercisePointer < 4) {
+                              controller.exercisePointer += 1;
+                              Get.off(() => BalanceTestingView());
+                            }
+                          },
+                          buttonText: "Next Exercise",
+                          bgColor: AppColor.steadyButtonColor,
+                        )
+                      : AppButton(
+                          onPressed: () {
+                            controller.isStop = false;
+                            controller.exercisePointer = 0;
+                            controller.questionPoints = [0, 0, 0, 0, 0];
+                            controller.update();
+                            Get.to(
+                              () => GreatJobView(),
+                            );
+                          },
+                          buttonText: "Done",
+                          bgColor: AppColor.steadyButtonColor,
+                        ),
+                  addVerticalSpace(15),
+                  controller.exercisePointer < 4
+                      ? AppButton(
+                          onPressed: () {
+                            if (controller.isStop) {
+                              controller.isStop = false;
+                              Get.until((route) =>
+                                  route.settings.name ==
+                                  Routes.STEADY_STEPS_DASHBOARD);
+                            } else {
+                              controller.isStop = true;
+                              controller.update();
+                            }
+                          },
+                          buttonText: "Stop",
+                          bgColor: AppColor.errorColor,
+                        )
+                      : SizedBox(
+                          height: 0,
+                        ),
+                  addVerticalSpace(8),
+                ],
+              )
+            ],
+          ));
+        }),
       ),
     );
   }

@@ -13,7 +13,10 @@ class NotificationsView extends GetView<NotificationsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CommanAppbar(notificationHide: true),
+        appBar: CommanAppbar(
+          notificationHide: true,
+          isSteadyStep: true,
+        ),
         body: CustomGradientBackground(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
